@@ -33,7 +33,7 @@ public class VoteService {
         checkNotFoundWithId(repository.delete(id, userId, restaurantId), id);
     }
 
-    public void update(Vote vote, int userId, int restaurantId){
+    public void update(Vote vote, int userId, int restaurantId) {
         Assert.notNull(vote, "vote must not be null");
         checkNotFoundWithId(repository.save(vote, userId, restaurantId), vote.getId());
     }
