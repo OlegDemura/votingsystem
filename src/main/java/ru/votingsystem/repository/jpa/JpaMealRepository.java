@@ -18,13 +18,13 @@ public class JpaMealRepository implements MealRepository {
     @Autowired
     private EntityManager em;
 
-
     @Override
     @Transactional
     public Meal save(Meal meal, int restaurantId) {
         if (!meal.isNew() && get(meal.getId(), restaurantId) == null) {
             return null;
         }
+
         meal.setRestaurant(em.getReference(Restaurant.class, restaurantId));
 
         if (meal.isNew()) {
@@ -41,7 +41,7 @@ public class JpaMealRepository implements MealRepository {
         return em.createNamedQuery(Meal.DELETE, Meal.class)
                 .setParameter("id", id)
                 .setParameter("restaurantId", restaurantId)
-                .executeUpdate()!=0;
+                .executeUpdate() != 0;
     }
 
     @Override
