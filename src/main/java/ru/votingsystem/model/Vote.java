@@ -5,8 +5,9 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @NamedQueries({
-        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id = :id")
-        //TODO Create named queries for getAllSorted()
+        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id = :id"),
+        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v WHERE v.restaurantId = :restaurantId ORDER BY v.dateVoting DESC"),
+        @NamedQuery(name = Vote.GET, query = "SELECT v FROM Vote v WHERE v.id = :id AND v.restaurantId = :restaurantId")
 })
 
 @Entity
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 public class Vote extends AbstractBaseEntity {
     public static final String DELETE = "Vote.delete";
     public static final String ALL_SORTED = "Vote.getAllSorted";
+    public static final String GET = "Vote.get";
 
     @Column(name = "user_id")
     @NotNull
