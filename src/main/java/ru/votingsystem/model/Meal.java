@@ -24,6 +24,9 @@ public class Meal extends AbstractNamedEntity {
     @Column(name = "date_lunch")
     private LocalDateTime dateTime;
 
+    @Column(name = "restaurant_id")
+    private Integer restaurantId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Restaurant restaurant;
 
@@ -52,6 +55,14 @@ public class Meal extends AbstractNamedEntity {
         this.dateTime = dateTime;
     }
 
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
+
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -66,6 +77,7 @@ public class Meal extends AbstractNamedEntity {
                 "price=" + price +
                 ", dateTime=" + dateTime +
                 ", name='" + name + '\'' +
+                ", restaurantId='" + restaurantId + '\'' +
                 ", id=" + id +
                 '}';
     }
