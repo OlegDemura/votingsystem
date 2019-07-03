@@ -39,7 +39,7 @@ public class RestaurantService {
     }
 
     public Restaurant create(Restaurant restaurant) throws NotFoundException {
-        Assert.notNull(restaurant, "user must not be null");
+        Assert.notNull(restaurant, "restaurant must not be null");
         return repository.save(restaurant);
     }
 }
