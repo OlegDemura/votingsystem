@@ -5,6 +5,7 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.votingsystem.model.Restaurant;
+import ru.votingsystem.model.User;
 import ru.votingsystem.model.Vote;
 import ru.votingsystem.repository.VoteRepository;
 
@@ -26,8 +27,8 @@ public class JpaVoteRepository implements VoteRepository {
         }
 
         vote.setRestaurant(em.getReference(Restaurant.class, restaurantId));
-        vote.setUserId(userId);
-        vote.setRestaurantId(restaurantId);
+        vote.setUser(em.getReference(User.class, userId));
+        vote.setRestaurant(em.getReference(Restaurant.class, restaurantId));
 
         if (vote.isNew()) {
             em.persist(vote);
