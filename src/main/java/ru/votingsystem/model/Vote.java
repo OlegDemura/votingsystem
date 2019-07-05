@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 
 @NamedQueries({
         @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id = :id"),
-        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v WHERE v.restaurantId = :restaurantId ORDER BY v.dateVoting DESC"),
-        @NamedQuery(name = Vote.GET, query = "SELECT v FROM Vote v WHERE v.id = :id AND v.restaurantId = :restaurantId")
+        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v WHERE v.restaurant.id = :restaurantId ORDER BY v.dateVoting DESC"),
+        @NamedQuery(name = Vote.GET, query = "SELECT v FROM Vote v WHERE v.id = :id AND v.restaurant.id = :restaurantId")
 })
 
 @Entity
@@ -17,45 +17,26 @@ public class Vote extends AbstractBaseEntity {
     public static final String ALL_SORTED = "Vote.getAllSorted";
     public static final String GET = "Vote.get";
 
-    @Column(name = "user_id")
-    @NotNull
-    private Integer userId;
-
-    @Column(name = "restaurant_id")
-    @NotNull
-    private Integer restaurantId;
-
     @Column(name = "date_voting")
     @NotNull
     private LocalDateTime dateVoting;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @NotNull
     private Restaurant restaurant;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
+    private User user;
 
     public Vote() {
     }
 
-    public Vote(Integer id, Integer userId, Integer restaurantId, LocalDateTime dateVoting) {
+    public Vote(Integer id, LocalDateTime dateVoting) {
         super(id);
-        this.userId = userId;
-        this.restaurantId = restaurantId;
         this.dateVoting = dateVoting;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Integer getRestaurantId() {
-        return restaurantId;
-    }
-
-    public void setRestaurantId(Integer restaurantId) {
-        this.restaurantId = restaurantId;
     }
 
     public LocalDateTime getDateVoting() {
@@ -74,11 +55,17 @@ public class Vote extends AbstractBaseEntity {
         this.restaurant = restaurant;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public String toString() {
         return "Vote{" +
-                "userId=" + userId +
-                ", restaurantId=" + restaurantId +
                 ", dateVoting=" + dateVoting +
                 ", id=" + id +
                 '}';
