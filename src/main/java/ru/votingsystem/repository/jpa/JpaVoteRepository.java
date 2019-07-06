@@ -10,13 +10,14 @@ import ru.votingsystem.model.Vote;
 import ru.votingsystem.repository.VoteRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
 public class JpaVoteRepository implements VoteRepository {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager em;
 
     @Override

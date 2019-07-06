@@ -8,13 +8,14 @@ import ru.votingsystem.model.User;
 import ru.votingsystem.repository.UserRepository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @Transactional(readOnly = true)
 public class JpaUserRepository implements UserRepository {
 
-    @Autowired
+    @PersistenceContext
     private EntityManager em;
 
     @Override
