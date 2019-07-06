@@ -32,6 +32,10 @@ public class Meal extends AbstractNamedEntity {
     public Meal() {
     }
 
+    public Meal(String name, Integer price, LocalDateTime dateTime) {
+        this(null, name, price, dateTime);
+    }
+
     public Meal(Integer id, String name, Integer price, LocalDateTime dateTime) {
         super(id, name);
         this.price = price;
