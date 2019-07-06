@@ -13,7 +13,7 @@ public class SecurityUtil {
         return id;
     }
 
-    public static void setId(int id) {
+    public static void setAuthId(int id) {
         SecurityUtil.id = id;
     }
 }
