@@ -17,7 +17,7 @@ public class Vote extends AbstractBaseEntity {
     public static final String ALL_SORTED = "Vote.getAllSorted";
     public static final String GET = "Vote.get";
 
-    @Column(name = "date_voting")
+    @Column(name = "date_vote")
     @NotNull
     private LocalDateTime dateVoting;
 
