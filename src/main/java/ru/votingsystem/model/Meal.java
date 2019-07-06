@@ -1,21 +1,28 @@
 package ru.votingsystem.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @NamedQueries({
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.restaurant.id = :restaurantId ORDER BY m.name DESC"),
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.restaurant.id = :restaurantId ORDER BY m.description"),
         @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId")
 })
 
 @Entity
 @Table(name = "meals")
-public class Meal extends AbstractNamedEntity {
+public class Meal extends AbstractBaseEntity {
     public static final String DELETE = "Meal.Delete";
     public static final String ALL_SORTED = "Meal.GetAllSorted";
     public static final String GET = "Meal.Get";
+
+    @Column(name = "description", nullable = false)
+    @NotBlank
+    @Size(min = 2, max = 120)
+    private String description;
 
     @Column(name = "price")
     @NotNull
@@ -32,14 +39,23 @@ public class Meal extends AbstractNamedEntity {
     public Meal() {
     }
 
-    public Meal(String name, Integer price, LocalDateTime dateTime) {
-        this(null, name, price, dateTime);
+    public Meal(String description, Integer price, LocalDateTime dateTime) {
+        this(null, description, price, dateTime);
     }
 
-    public Meal(Integer id, String name, Integer price, LocalDateTime dateTime) {
-        super(id, name);
+    public Meal(Integer id, String description, Integer price, LocalDateTime dateTime) {
+        super(id);
+        this.description = description;
         this.price = price;
         this.dateTime = dateTime;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Integer getPrice() {
@@ -71,7 +87,7 @@ public class Meal extends AbstractNamedEntity {
         return "Meal{" +
                 "price=" + price +
                 ", dateTime=" + dateTime +
-                ", name='" + name + '\'' +
+                ", name='" + description + '\'' +
                 ", id=" + id +
                 '}';
     }
