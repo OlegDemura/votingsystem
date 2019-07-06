@@ -28,7 +28,6 @@ public class JpaVoteRepository implements VoteRepository {
 
         vote.setRestaurant(em.getReference(Restaurant.class, restaurantId));
         vote.setUser(em.getReference(User.class, userId));
-        vote.setRestaurant(em.getReference(Restaurant.class, restaurantId));
 
         if (vote.isNew()) {
             em.persist(vote);
