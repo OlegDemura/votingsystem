@@ -7,7 +7,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @NamedQueries({
-        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id"),
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId"),
         @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.restaurant.id = :restaurantId ORDER BY m.description"),
         @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId")
 })
