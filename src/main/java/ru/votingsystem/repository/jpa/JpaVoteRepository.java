@@ -41,7 +41,7 @@ public class JpaVoteRepository implements VoteRepository {
     @Override
     @Transactional
     public boolean delete(int id, int userId, int restaurantId) {
-        return em.createNamedQuery(Vote.DELETE, Vote.class)
+        return em.createNamedQuery(Vote.DELETE)
                 .setParameter("id", id)
                 .setParameter("userId", userId)
                 .setParameter("restaurantId", restaurantId)
