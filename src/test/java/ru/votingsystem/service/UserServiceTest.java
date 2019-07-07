@@ -1,7 +1,9 @@
 package ru.votingsystem.service;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 import ru.votingsystem.model.Role;
 import ru.votingsystem.model.User;
@@ -19,7 +21,16 @@ public class UserServiceTest extends BaseServiceTest {
     @Autowired
     private UserService service;
 
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setUp() throws Exception {
+        cacheManager.getCache("users").clear();
+    }
+
     @Test
+
     public void get() {
         User user = service.get(ADMIN_ID);
         assertMatch(user, ADMIN);
