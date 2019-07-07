@@ -1,6 +1,5 @@
 package ru.votingsystem.service;
 
-import org.assertj.core.condition.Not;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.votingsystem.model.Vote;
