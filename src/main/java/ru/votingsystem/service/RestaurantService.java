@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.votingsystem.model.Restaurant;
-import ru.votingsystem.repository.RestaurantRepository;
+import ru.votingsystem.repository.datajpa.DataJpaRestaurantRepository;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
@@ -13,11 +13,10 @@ import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class RestaurantService {
-
-    private final RestaurantRepository repository;
+    private final DataJpaRestaurantRepository repository;
 
     @Autowired
-    public RestaurantService(RestaurantRepository repository) {
+    public RestaurantService(DataJpaRestaurantRepository repository) {
         this.repository = repository;
     }
 

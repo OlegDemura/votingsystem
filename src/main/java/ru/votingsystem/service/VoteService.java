@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.votingsystem.model.Vote;
-import ru.votingsystem.repository.VoteRepository;
+import ru.votingsystem.repository.datajpa.DataJpaVoteRepository;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
@@ -14,10 +14,10 @@ import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class VoteService {
 
-    private final VoteRepository repository;
+    private final DataJpaVoteRepository repository;
 
     @Autowired
-    public VoteService(VoteRepository repository) {
+    public VoteService(DataJpaVoteRepository repository) {
         this.repository = repository;
     }
 
@@ -38,7 +38,7 @@ public class VoteService {
         checkNotFoundWithId(repository.save(vote, userId, restaurantId), vote.getId());
     }
 
-    public Vote create(Vote vote, int userId, int restaurant){
+    public Vote create(Vote vote, int userId, int restaurant) {
         Assert.notNull(vote, "vote must not be null");
         return repository.save(vote, userId, restaurant);
     }

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.votingsystem.model.User;
-import ru.votingsystem.repository.UserRepository;
+import ru.votingsystem.repository.datajpa.DataJpaUserRepository;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
@@ -15,10 +15,10 @@ import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class UserService {
 
-    private final UserRepository repository;
+    private final DataJpaUserRepository repository;
 
     @Autowired
-    public UserService(UserRepository repository) {
+    public UserService(DataJpaUserRepository repository) {
         this.repository = repository;
     }
 
