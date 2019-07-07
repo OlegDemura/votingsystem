@@ -12,19 +12,31 @@ public class DataJpaVoteRepository {
     @Autowired
     private CrudVoteRepository repository;
 
-    public Vote save(Vote vote, int userId, int restaurantId){
-        return null;
+    @Autowired
+    private CrudRestaurantRepository restaurantRepository;
+
+    @Autowired
+    private CrudUserRepository userRepository;
+
+    public Vote save(Vote vote, int userId, int restaurantId) {
+        if (!vote.isNew() && get(vote.getId(), restaurantId) == null) {
+            return null;
+        }
+
+        vote.setRestaurant(restaurantRepository.getOne(restaurantId));
+        vote.setUser(userRepository.getOne(userId));
+        return repository.save(vote);
     }
 
-    public boolean delete(int id, int userId, int restaurantId){
-        return false;
+    public boolean delete(int id, int userId, int restaurantId) {
+        return repository.delete(id, userId, restaurantId) != 0;
     }
 
-    public Vote get(int id, int restaurantId){
-        return null;
+    public Vote get(int id, int restaurantId) {
+        return repository.getOneVote(id, restaurantId);
     }
 
-    public List<Vote> getAll(int restaurantId){
-        return null;
+    public List<Vote> getAll(int restaurantId) {
+        return repository.getAll(restaurantId);
     }
 }

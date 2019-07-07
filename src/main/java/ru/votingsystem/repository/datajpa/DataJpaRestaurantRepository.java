@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public class DataJpaRestaurantRepository {
-    private static final Sort SORT_NAME_EMAIL = new Sort(Sort.Direction.ASC, "description");
+    private static final Sort SORT_NAME_EMAIL = new Sort(Sort.Direction.ASC, "name");
 
     @Autowired
     private CrudRestaurantRepository crudRestaurantRepository;
