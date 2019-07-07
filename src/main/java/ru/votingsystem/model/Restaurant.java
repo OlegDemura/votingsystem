@@ -2,6 +2,7 @@ package ru.votingsystem.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @NamedQueries({
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r where r.id=:id"),
@@ -16,12 +17,13 @@ public class Restaurant extends AbstractNamedEntity {
 
     @Column(name = "address")
     @NotNull
+    @Size(min = 2, max = 120)
     private String address;
 
     public Restaurant() {
     }
 
-    public Restaurant(String name, String address){
+    public Restaurant(String name, String address) {
         super(null, name);
         this.address = address;
     }

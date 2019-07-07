@@ -1,5 +1,7 @@
 package ru.votingsystem.model;
 
+import org.hibernate.validator.constraints.Range;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,11 +26,12 @@ public class Meal extends AbstractBaseEntity {
     @Size(min = 2, max = 120)
     private String description;
 
-    @Column(name = "price")
-    @NotNull
+    @Column(name = "price", nullable = false)
+    @Range(min = 5, max = 10000)
     private Integer price;
 
-    @Column(name = "date_lunch")
+    @Column(name = "date_lunch", nullable = false, columnDefinition = "timestamp default now()")
+    @NotNull
     private LocalDateTime dateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
