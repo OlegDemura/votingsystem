@@ -13,8 +13,8 @@ import java.util.List;
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
     @Transactional
-    @Modifying
-    int delete(@Param("id") int id, @Param("restaurantId") int restaurantId);
+    @Query("DELETE FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId")
+    int deleteOne(@Param("id") int id, @Param("restaurantId") int restaurantId);
 
     @Transactional
     @Modifying

@@ -33,6 +33,6 @@ public class DataJpaMealRepository {
     }
 
     public boolean delete(int id, int restaurantId) {
-        return crudMealRepository.delete(id, restaurantId) != 0;
+        return crudMealRepository.deleteOne(id, restaurantId) != 0;
     }
 }
