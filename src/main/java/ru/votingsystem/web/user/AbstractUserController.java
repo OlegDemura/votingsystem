@@ -14,7 +14,7 @@ import static ru.votingsystem.util.ValidationUtil.checkNew;
 
 @Controller
 public abstract class AbstractUserController {
-    private final Logger log = LoggerFactory.getLogger(AbstractUserController.class);
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private UserService service;
