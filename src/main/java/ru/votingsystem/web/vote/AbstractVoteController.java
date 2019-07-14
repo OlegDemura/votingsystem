@@ -13,9 +13,8 @@ import java.util.List;
 import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
 import static ru.votingsystem.util.ValidationUtil.checkNew;
 
-@Controller
-public class VoteController {
-    private final Logger log = LoggerFactory.getLogger(VoteController.class);
+public class AbstractVoteController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private VoteService service;
