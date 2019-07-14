@@ -4,6 +4,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import ru.votingsystem.model.Restaurant;
 import ru.votingsystem.service.RestaurantService;
 
@@ -13,16 +16,19 @@ import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
 import static ru.votingsystem.util.ValidationUtil.checkNew;
 
 @Controller
-public class RestaurantController {
-    private final Logger log = LoggerFactory.getLogger(RestaurantController.class);
+@RequestMapping("/restaurants")
+public class JspRestaurantController extends AbstractRestaurantController {
 
-    @Autowired
-    private RestaurantService service;
-
-    public List<Restaurant> getAll() {
+    @GetMapping
+    public String getAll(Model model) {
+        List<Restaurant> list = service.getAll();
+        model.addAttribute("restaurants", list);
+        return "restaurants";
+    }
+    /*public List<Restaurant> getAll() {
         log.info("getAll");
         return service.getAll();
-    }
+    }*/
 
     public Restaurant get(int id) {
         log.info("get {}", id);
