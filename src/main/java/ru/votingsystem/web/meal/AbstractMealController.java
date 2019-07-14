@@ -12,8 +12,8 @@ import java.util.List;
 import static ru.votingsystem.util.ValidationUtil.checkNew;
 
 @Controller
-public class MealController {
-    private final Logger log = LoggerFactory.getLogger(MealController.class);
+public class AbstractMealController {
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private MealService service;
