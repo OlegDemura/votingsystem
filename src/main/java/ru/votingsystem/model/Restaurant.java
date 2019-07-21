@@ -1,8 +1,12 @@
 package ru.votingsystem.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r where r.id=:id"),
@@ -19,6 +23,15 @@ public class Restaurant extends AbstractNamedEntity {
     @NotNull
     @Size(min = 2, max = 120)
     private String address;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OrderBy("dateVoting DESC")
+    private List<Vote> votes;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @OrderBy("dateTime DESC")
+    private List<Meal> meals;
 
     public Restaurant() {
     }
@@ -39,6 +52,14 @@ public class Restaurant extends AbstractNamedEntity {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public List<Vote> getVotes() {
+        return votes;
+    }
+
+    public List<Meal> getMeals() {
+        return meals;
     }
 
     @Override
