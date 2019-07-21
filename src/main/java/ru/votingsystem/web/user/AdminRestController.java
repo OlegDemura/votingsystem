@@ -1,14 +1,18 @@
 package ru.votingsystem.web.user;
 
+import org.springframework.stereotype.Controller;
 import ru.votingsystem.model.User;
 
 import java.util.List;
 
+import static ru.votingsystem.util.ValidationUtil.checkNew;
+
+@Controller
 public class AdminRestController extends AbstractUserController {
 
-    @Override
     public List<User> getAll() {
-        return super.getAll();
+        log.info("getAll");
+        return service.getAll();
     }
 
     @Override
@@ -16,9 +20,10 @@ public class AdminRestController extends AbstractUserController {
         return super.get(id);
     }
 
-    @Override
     public User create(User user) {
-        return super.create(user);
+        log.info("create {}", user);
+        checkNew(user);
+        return service.create(user);
     }
 
     @Override
@@ -31,8 +36,8 @@ public class AdminRestController extends AbstractUserController {
         super.update(user, id);
     }
 
-    @Override
     public User getByMail(String email) {
-        return super.getByMail(email);
+        log.info("getByMail {}", email);
+        return service.getByEmail(email);
     }
 }
