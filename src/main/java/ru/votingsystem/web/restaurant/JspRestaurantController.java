@@ -1,19 +1,14 @@
 package ru.votingsystem.web.restaurant;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.votingsystem.model.Restaurant;
-import ru.votingsystem.service.RestaurantService;
-
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
-import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
-import static ru.votingsystem.util.ValidationUtil.checkNew;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/restaurants")
@@ -21,34 +16,44 @@ public class JspRestaurantController extends AbstractRestaurantController {
 
     @GetMapping
     public String getAll(Model model) {
-        List<Restaurant> list = service.getAll();
+        List<Restaurant> list = super.getAll();
         model.addAttribute("restaurants", list);
         return "restaurants";
     }
-    /*public List<Restaurant> getAll() {
-        log.info("getAll");
-        return service.getAll();
-    }*/
 
-    public Restaurant get(int id) {
-        log.info("get {}", id);
-        return service.get(id);
+    @GetMapping("/delete")
+    public String delete(HttpServletRequest request) {
+        super.delete(getId(request, "restaurantId"));
+        return "redirect:/restaurant";
     }
 
-    public void delete(int id) {
-        log.info("delete {}", id);
-        service.delete(id);
+    @GetMapping("/create")
+    public String create(Model model) {
+        Restaurant restaurant = new Restaurant("", "");
+        model.addAttribute("restaurant", restaurant);
+        return "restaurantForm";
     }
 
-    public Restaurant create(Restaurant restaurant) {
-        log.info("create {}", restaurant);
-        checkNew(restaurant);
-        return service.create(restaurant);
+    @GetMapping("/update")
+    public String update(Model model, HttpServletRequest request) {
+        model.addAttribute("restaurant", super.get(getId(request, "restaurantId")));
+        return "restaurantForm";
     }
 
-    public void update(Restaurant restaurant, int id) {
-        log.info("update {} with {}", restaurant, id);
-        assureIdConsistent(restaurant, id);
-        service.update(restaurant);
+    @PostMapping
+    public String save(HttpServletRequest request) {
+        Restaurant restaurant = new Restaurant(request.getParameter("name"),
+                request.getParameter("address"));
+        if (request.getParameter("restaurantId").isEmpty()) {
+            super.create(restaurant);
+        } else {
+            super.update(restaurant, getId(request, "restaurantId"));
+        }
+        return "redirect:/restaurants";
+    }
+
+    private int getId(HttpServletRequest request, String param) {
+        String paramId = Objects.requireNonNull(request.getParameter(param));
+        return Integer.valueOf(paramId);
     }
 }
