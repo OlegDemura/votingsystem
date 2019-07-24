@@ -18,17 +18,17 @@
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
     <hr>
-    <h2><spring:message code="${restaurant.new() ? 'restaurant.create' : 'restaurant.update'}"/></h2>
-    <jsp:useBean id="meal" type="ru.votingsystem.model.Restaurant" scope="request"/>
-    <form method="post" action="meals">
-        <input type="hidden" name="id" value="${restaurant.id}">
+    <jsp:useBean id="restaurant" type="ru.votingsystem.model.Restaurant" scope="request"/>
+    <h2><spring:message code="${restaurant.isNew() ? 'restaurant.create' : 'restaurant.update'}"/></h2>
+    <form method="post" action="restaurants">
+        <input type="hidden" name="restaurantId" value="${restaurant.id}">
         <dl>
             <dt><spring:message code="restaurant.name"/></dt>
-            <dd><input type="text" value="${restaurant.name}" name="name" required disabled></dd>
+            <dd><input type="text" value="${restaurant.name}" name="name" required></dd>
         </dl>
         <dl>
             <dt><spring:message code="restaurant.address"/></dt>
-            <dd><input type="text" value="${restaurant.address}" name="text" required disabled></dd>
+            <dd><input type="text" value="${restaurant.address}" name="address" required></dd>
         </dl>
         <button type="submit"><spring:message code="common.save"/></button>
         <button onclick="window.history.back()" type="button"><spring:message code="common.cancel"/></button>
