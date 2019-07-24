@@ -3,7 +3,6 @@ package ru.votingsystem.web.meal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import ru.votingsystem.model.Meal;
 import ru.votingsystem.service.MealService;
 
@@ -11,9 +10,8 @@ import java.util.List;
 
 import static ru.votingsystem.util.ValidationUtil.checkNew;
 
-@Controller
-public class AbstractMealController {
-    private final Logger log = LoggerFactory.getLogger(getClass());
+public abstract class AbstractMealController {
+    protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private MealService service;

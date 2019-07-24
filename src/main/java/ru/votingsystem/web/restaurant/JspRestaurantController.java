@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.votingsystem.model.Meal;
 import ru.votingsystem.model.Restaurant;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -38,6 +39,15 @@ public class JspRestaurantController extends AbstractRestaurantController {
     public String update(Model model, HttpServletRequest request) {
         model.addAttribute("restaurant", super.get(getId(request, "restaurantId")));
         return "restaurantForm";
+    }
+
+    @GetMapping("/view")
+    public String view(Model model, HttpServletRequest request) {
+        Restaurant restaurant = super.getWithMeals(getId(request, "restaurantId"));
+        List<Meal> list = restaurant.getMeals();
+        model.addAttribute("restaurant", super.get(getId(request, "restaurantId")));
+        model.addAttribute("meals", list);
+        return "meals";
     }
 
     @PostMapping

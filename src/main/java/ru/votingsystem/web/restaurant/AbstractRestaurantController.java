@@ -45,4 +45,9 @@ abstract class AbstractRestaurantController {
         assureIdConsistent(restaurant, id);
         service.update(restaurant);
     }
+
+    public Restaurant getWithMeals(int id) {
+        log.info("get {}", id);
+        return service.getWithMeals(id);
+    }
 }
