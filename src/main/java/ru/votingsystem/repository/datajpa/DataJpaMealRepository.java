@@ -35,4 +35,8 @@ public class DataJpaMealRepository {
     public boolean delete(int id, int restaurantId) {
         return crudMealRepository.deleteOne(id, restaurantId) != 0;
     }
+
+    public Meal getWithRestaurant(int id, int restaurantId) {
+        return crudMealRepository.getWithRestaurant(id, restaurantId);
+    }
 }

@@ -29,4 +29,8 @@ public class DataJpaRestaurantRepository {
     public List<Restaurant> getAll() {
         return crudRestaurantRepository.findAll(SORT_NAME_EMAIL);
     }
+
+    public Restaurant getWithMeals(int restaurantId) {
+        return crudRestaurantRepository.getWithMeals(restaurantId);
+    }
 }
