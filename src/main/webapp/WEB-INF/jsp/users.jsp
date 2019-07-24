@@ -1,16 +1,39 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Олег Демура
-  Date: 14.07.2019
-  Time: 15:17
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<html>
+<jsp:include page="fragments/headTag.jsp"/>
+<body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
+
+<section>
+    <h3><spring:message code="user.title"/></h3>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+        <tr>
+            <th><spring:message code="user.name"/></th>
+            <th><spring:message code="user.email"/></th>
+            <th><spring:message code="user.roles"/></th>
+            <th><spring:message code="user.active"/></th>
+            <th><spring:message code="user.registered"/></th>
+        </tr>
+        </thead>
+        <c:forEach items="${users}" var="user">
+            <jsp:useBean id="user" scope="page" type="ru.votingsystem.model.User"/>
+            <tr>
+                <td><c:out value="${user.name}"/></td>
+                <td><a href="mailto:${user.email}">${user.email}</a></td>
+                <td>${user.roles}</td>
+                <td><%=user.isEnabled()%>
+                </td>
+                <td><fmt:formatDate value="${user.registered}" pattern="dd-MM-yyyy"/></td>
+            </tr>
+        </c:forEach>
+    </table>
+</section>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

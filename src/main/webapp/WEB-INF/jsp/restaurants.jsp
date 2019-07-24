@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Олег Демура
@@ -9,34 +10,37 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title><spring:message code="restaurant.title"/></title>
+    <jsp:include page="fragments/headTag.jsp"/>
 </head>
 <body>
-
+<jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
-    <h3><a href="index.jsp">Home</a></h3>
+    <h2><spring:message code="restaurant.title"/></h2>
     <hr/>
-    <h2>Restaurants</h2>
-    <hr/>
-    <a href="meals?action=create">Add Meal</a>
+    <a href="restaurants/create"><spring:message code="restaurant.create"/></a>
     <br><br>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Vote</th>
+            <th><spring:message code="restaurant.name"/></th>
+            <th><spring:message code="restaurant.address"/></th>
+            <th><spring:message code="restaurant.view"/></th>
+            <th><spring:message code="restaurant.vote"/></th>
+            <th><spring:message code="restaurant.delete_vote"/></th>
         </tr>
         </thead>
-        <c:forEach items="${restaurant}" var="restaurant">
+        <c:forEach items="${restaurants}" var="restaurant">
             <tr>
                 <td>${restaurant.name}</td>
                 <td>${restaurant.address}</td>
-                <td><a href="restaurants?action=voting&id=${restaurant.id}">Vote</a></td>
+                <td><a href="restaurants/view?restaurantId=${restaurant.id}"><spring:message code="restaurant.view"/></a></td>
+                <td><a href="votes/create?restaurantId=${restaurant.id}"><spring:message code="restaurant.vote"/></a></td>
+                <td><a href="votes/delete?id=0&restaurantId=${restaurant.id}"><spring:message code="restaurant.delete_vote"/></a></td>
             </tr>
         </c:forEach>
     </table>
 </section>
-
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
