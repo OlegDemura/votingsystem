@@ -1,5 +1,7 @@
 package ru.votingsystem.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
@@ -10,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @NamedQueries({
         @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId"),
         @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.restaurant.id = :restaurantId ORDER BY m.description"),
@@ -29,8 +32,8 @@ public class Meal extends AbstractBaseEntity {
     private String description;
 
     @Column(name = "price", nullable = false)
-    @Range(min = 5, max = 10000)
-    private Integer price;
+    @Range(min = 0, max = 10000)
+    private Float price;
 
     @Column(name = "date_lunch", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
@@ -45,11 +48,11 @@ public class Meal extends AbstractBaseEntity {
     public Meal() {
     }
 
-    public Meal(String description, Integer price, LocalDateTime dateTime) {
+    public Meal(String description, Float price, LocalDateTime dateTime) {
         this(null, description, price, dateTime);
     }
 
-    public Meal(Integer id, String description, Integer price, LocalDateTime dateTime) {
+    public Meal(Integer id, String description, Float price, LocalDateTime dateTime) {
         super(id);
         this.description = description;
         this.price = price;
@@ -64,11 +67,11 @@ public class Meal extends AbstractBaseEntity {
         this.description = description;
     }
 
-    public Integer getPrice() {
+    public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 
