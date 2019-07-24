@@ -36,7 +36,7 @@ public class JspMealController extends AbstractMealController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        Meal meal = new Meal("", 1000, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        Meal meal = new Meal("", 1000F, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
         model.addAttribute("meal", meal);
         return "mealForm";
     }
@@ -44,7 +44,7 @@ public class JspMealController extends AbstractMealController {
     @PostMapping
     public String save(HttpServletRequest request) {
         Meal meal = new Meal(request.getParameter("description"),
-                Integer.valueOf(request.getParameter("price")),
+                Float.valueOf(request.getParameter("price")),
                 LocalDateTime.parse(request.getParameter("dateTime")));
         if (request.getParameter("id").isEmpty()) {
             super.create(meal, getId(request, "restaurantId"));

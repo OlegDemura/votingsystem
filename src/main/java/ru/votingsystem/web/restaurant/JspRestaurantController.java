@@ -45,7 +45,8 @@ public class JspRestaurantController extends AbstractRestaurantController {
     public String view(Model model, HttpServletRequest request) {
         Restaurant restaurant = super.getWithMeals(getId(request, "restaurantId"));
         List<Meal> list = restaurant.getMeals();
-        model.addAttribute("restaurant", super.get(getId(request, "restaurantId")));
+        //model.addAttribute("restaurant", super.get(getId(request, "restaurantId")));
+        model.addAttribute("restaurant", restaurant);
         model.addAttribute("meals", list);
         return "meals";
     }
