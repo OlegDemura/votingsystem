@@ -13,7 +13,6 @@ import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteService {
-
     private final DataJpaVoteRepository repository;
 
     @Autowired
@@ -41,5 +40,9 @@ public class VoteService {
     public Vote create(Vote vote, int userId, int restaurant) {
         Assert.notNull(vote, "vote must not be null");
         return repository.save(vote, userId, restaurant);
+    }
+
+    public Integer count(int restaurantId) {
+        return repository.countAllByDateVoting(restaurantId);
     }
 }
