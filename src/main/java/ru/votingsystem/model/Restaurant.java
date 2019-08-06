@@ -11,16 +11,9 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Cache(usage= CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@NamedQueries({
-        @NamedQuery(name = Restaurant.DELETE, query = "DELETE FROM Restaurant r where r.id=:id"),
-        @NamedQuery(name = Restaurant.ALL_SORTED, query = "SELECT r FROM Restaurant r order by r.name")
-})
-
 @Entity
 @Table(name = "restaurant")
 public class Restaurant extends AbstractNamedEntity {
-    public static final String DELETE = "Restaurant.delete";
-    public static final String ALL_SORTED = "Restaurant.getAllSorted";
 
     @Column(name = "address")
     @NotNull
@@ -34,7 +27,7 @@ public class Restaurant extends AbstractNamedEntity {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OrderBy("dateTime DESC")
+    @OrderBy("date DESC")
     private List<Meal> meals;
 
     public Restaurant() {

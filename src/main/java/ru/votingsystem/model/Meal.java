@@ -10,21 +10,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-@NamedQueries({
-        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.restaurant.id = :restaurantId ORDER BY m.description"),
-        @NamedQuery(name = Meal.GET, query = "SELECT m FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId")
-})
-
 @Entity
-@Table(name = "meals")
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"description", "date_lunch"},
+        name = "meals_unique_description_datetime_index")})
 public class Meal extends AbstractBaseEntity {
-    public static final String DELETE = "Meal.Delete";
-    public static final String ALL_SORTED = "Meal.GetAllSorted";
-    public static final String GET = "Meal.Get";
 
     @Column(name = "description", nullable = false)
     @NotBlank
@@ -37,7 +29,7 @@ public class Meal extends AbstractBaseEntity {
 
     @Column(name = "date_lunch", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
-    private LocalDateTime dateTime;
+    private LocalDate date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -48,15 +40,15 @@ public class Meal extends AbstractBaseEntity {
     public Meal() {
     }
 
-    public Meal(String description, Integer price, LocalDateTime dateTime) {
-        this(null, description, price, dateTime);
+    public Meal(String description, Integer price, LocalDate date) {
+        this(null, description, price, date);
     }
 
-    public Meal(Integer id, String description, Integer price, LocalDateTime dateTime) {
+    public Meal(Integer id, String description, Integer price, LocalDate date) {
         super(id);
         this.description = description;
         this.price = price;
-        this.dateTime = dateTime;
+        this.date = date;
     }
 
     public String getDescription() {
@@ -75,12 +67,12 @@ public class Meal extends AbstractBaseEntity {
         this.price = price;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDate getDateTime() {
+        return date;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public Restaurant getRestaurant() {
@@ -95,7 +87,7 @@ public class Meal extends AbstractBaseEntity {
     public String toString() {
         return "Meal{" +
                 "price=" + price +
-                ", dateTime=" + dateTime +
+                ", dateTime=" + date +
                 ", name='" + description + '\'' +
                 ", id=" + id +
                 '}';

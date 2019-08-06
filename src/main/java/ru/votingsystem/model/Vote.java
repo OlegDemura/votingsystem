@@ -7,18 +7,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
-@NamedQueries({
-        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id = :id AND v.user.id = :userId AND v.restaurant.id = :restaurantId"),
-        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v WHERE v.restaurant.id = :restaurantId ORDER BY v.dateVoting DESC"),
-        @NamedQuery(name = Vote.GET, query = "SELECT v FROM Vote v WHERE v.id = :id AND v.restaurant.id = :restaurantId")
-})
-
 @Entity
-@Table(name = "votes")
+@Table(name = "votes", uniqueConstraints = {@UniqueConstraint(columnNames = {"restaurant_id", "date_voting"},
+        name = "vote_unique_restaurant_date_idx")})
 public class Vote extends AbstractBaseEntity {
-    public static final String DELETE = "Vote.delete";
-    public static final String ALL_SORTED = "Vote.getAllSorted";
-    public static final String GET = "Vote.get";
 
     @Column(name = "date_voting", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
