@@ -33,7 +33,7 @@ public class Meal extends AbstractBaseEntity {
 
     @Column(name = "price", nullable = false)
     @Range(min = 0, max = 10000)
-    private Float price;
+    private Integer price;
 
     @Column(name = "date_lunch", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
@@ -48,11 +48,11 @@ public class Meal extends AbstractBaseEntity {
     public Meal() {
     }
 
-    public Meal(String description, Float price, LocalDateTime dateTime) {
+    public Meal(String description, Integer price, LocalDateTime dateTime) {
         this(null, description, price, dateTime);
     }
 
-    public Meal(Integer id, String description, Float price, LocalDateTime dateTime) {
+    public Meal(Integer id, String description, Integer price, LocalDateTime dateTime) {
         super(id);
         this.description = description;
         this.price = price;
@@ -67,11 +67,11 @@ public class Meal extends AbstractBaseEntity {
         this.description = description;
     }
 
-    public Float getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
