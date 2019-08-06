@@ -49,6 +49,6 @@ CREATE TABLE meals
     description   TEXT                              NOT NULL,
     price         INTEGER                           NOT NULL,
     restaurant_id INTEGER                           NOT NULL,
-    date_lunch    TIMESTAMP           DEFAULT now() NOT NULL,
+    date_lunch    DATE                DEFAULT now() NOT NULL,
     FOREIGN KEY (restaurant_id) REFERENCES restaurant (id) ON DELETE CASCADE
 );
