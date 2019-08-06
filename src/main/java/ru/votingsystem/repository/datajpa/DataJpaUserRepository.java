@@ -3,6 +3,7 @@ package ru.votingsystem.repository.datajpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.votingsystem.model.User;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class DataJpaUserRepository {
     @Autowired
     private CrudUserRepository crudRepository;
 
+    @Transactional
     public User save(User user) {
         return crudRepository.save(user);
     }

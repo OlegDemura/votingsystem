@@ -39,4 +39,8 @@ public class DataJpaVoteRepository {
     public List<Vote> getAll(int restaurantId) {
         return repository.getAll(restaurantId);
     }
+
+    public Integer countAllByDateVoting(int restaurantId) {
+        return repository.countAllByDateVoting(restaurantId);
+    }
 }

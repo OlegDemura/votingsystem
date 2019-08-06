@@ -1,5 +1,6 @@
 package ru.votingsystem.repository.datajpa;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +16,7 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Transactional
     @Modifying
     @Query("DELETE FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId")
-    int deleteOne(@Param("id") int id, @Param("restaurantId") int restaurantId);
+    int delete(@Param("id") int id, @Param("restaurantId") int restaurantId);
 
     @Query("SELECT m FROM Meal m WHERE m.restaurant.id = :restaurantId ORDER BY m.description")
     List<Meal> getAll(@Param("restaurantId") int restaurantId);
@@ -23,7 +24,8 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Query("SELECT m FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId")
     Meal getOneMeal(@Param("id") int id, @Param("restaurantId") int restaurantId);
 
-    @Query("SELECT m FROM Meal m JOIN FETCH m.restaurant WHERE m.id=?1 AND m.restaurant.id=?2 ORDER BY m.dateTime DESC")
-    Meal getWithRestaurant(Integer id, Integer restaurantId);
+    @EntityGraph(attributePaths = "restaurant", type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT m FROM Meal m JOIN FETCH m.restaurant WHERE m.id=?1 AND m.restaurant.id=?2 ORDER BY m.date DESC")
+    Meal getWithRestaurant(int id, int restaurantId);
 }
 

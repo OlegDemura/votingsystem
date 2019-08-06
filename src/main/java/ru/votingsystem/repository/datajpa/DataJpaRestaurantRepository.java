@@ -3,6 +3,7 @@ package ru.votingsystem.repository.datajpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ru.votingsystem.model.Restaurant;
 
 import java.util.List;
@@ -18,12 +19,13 @@ public class DataJpaRestaurantRepository {
         return crudRestaurantRepository.delete(restaurantId) != 0;
     }
 
+    @Transactional
     public Restaurant save(Restaurant restaurant) {
         return crudRestaurantRepository.save(restaurant);
     }
 
-    public Restaurant get(int id) {
-        return crudRestaurantRepository.findById(id).orElse(null);
+    public Restaurant get(int restaurantId) {
+        return crudRestaurantRepository.findById(restaurantId).orElse(null);
     }
 
     public List<Restaurant> getAll() {
