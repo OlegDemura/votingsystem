@@ -1,18 +1,30 @@
 package ru.votingsystem.service;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import ru.votingsystem.model.Restaurant;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.votingsystem.RestaurantTestData.*;
 
-public class RestaurantServiceTest extends BaseServiceTest {
+public class RestaurantServiceTest extends AbstractServiceTest {
 
     @Autowired
     private RestaurantService service;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        cacheManager.getCache("restaurants").clear();
+    }
 
     @Test
     public void getAll() {
@@ -28,8 +40,7 @@ public class RestaurantServiceTest extends BaseServiceTest {
 
     @Test
     public void getNotFound() {
-        thrown.expect(NotFoundException.class);
-        service.get(1);
+        assertThrows(NotFoundException.class, () -> service.get(1));
     }
 
     @Test
@@ -40,8 +51,7 @@ public class RestaurantServiceTest extends BaseServiceTest {
 
     @Test
     public void deleteNotFound() {
-        thrown.expect(NotFoundException.class);
-        service.delete(1);
+        assertThrows(NotFoundException.class, () -> service.delete(1));
     }
 
     @Test

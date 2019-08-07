@@ -1,20 +1,32 @@
 package ru.votingsystem.service;
 
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import ru.votingsystem.model.Meal;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.votingsystem.MealTestData.*;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT1_ID;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
 
-public class MealServiceTest extends BaseServiceTest {
+public class MealServiceTest extends AbstractServiceTest {
 
     @Autowired
     private MealService service;
+
+    @Autowired
+    private CacheManager cacheManager;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        cacheManager.getCache("meals").clear();
+    }
 
     @Test
     public void get() {
@@ -24,14 +36,14 @@ public class MealServiceTest extends BaseServiceTest {
 
     @Test
     public void getNotFound() {
-        thrown.expect(NotFoundException.class);
-        service.get(MEAL1_ID, RESTAURANT1_ID);
+        assertThrows(NotFoundException.class, () ->
+                service.get(MEAL1_ID, RESTAURANT1_ID));
     }
 
     @Test
     public void getNotOwn() {
-        thrown.expect(NotFoundException.class);
-        service.get(MEAL1_ID, RESTAURANT1_ID);
+        assertThrows(NotFoundException.class, () ->
+                service.get(MEAL1_ID, RESTAURANT1_ID));
     }
 
     @Test
@@ -48,14 +60,14 @@ public class MealServiceTest extends BaseServiceTest {
 
     @Test
     public void deleteNotFound() {
-        thrown.expect(NotFoundException.class);
-        service.delete(1, RESTAURANT1_ID);
+        assertThrows(NotFoundException.class, () ->
+                service.delete(1, RESTAURANT1_ID));
     }
 
     @Test
     public void deleteNotOwn() {
-        thrown.expect(NotFoundException.class);
-        service.delete(MEAL1_ID, RESTAURANT1_ID);
+        assertThrows(NotFoundException.class, () ->
+                service.delete(MEAL1_ID, RESTAURANT1_ID));
     }
 
     @Test
@@ -67,9 +79,8 @@ public class MealServiceTest extends BaseServiceTest {
 
     @Test
     public void updateNotFound() {
-        thrown.expect(NotFoundException.class);
-        thrown.expectMessage("Not found entity with id=" + MEAL1_ID);
-        service.update(MEAL1, RESTAURANT1_ID);
+        NotFoundException e = assertThrows(NotFoundException.class, ()-> service.update(MEAL1, RESTAURANT1_ID));
+        assertEquals(e.getMessage(), "Not found entity with id=" + MEAL1_ID);
     }
 
     @Test

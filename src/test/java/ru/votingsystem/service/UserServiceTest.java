@@ -1,7 +1,7 @@
 package ru.votingsystem.service;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
@@ -13,10 +13,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.votingsystem.UserTestData.*;
 
-public class UserServiceTest extends BaseServiceTest {
+public class UserServiceTest extends AbstractServiceTest {
 
     @Autowired
     private UserService service;
@@ -24,13 +24,12 @@ public class UserServiceTest extends BaseServiceTest {
     @Autowired
     private CacheManager cacheManager;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         cacheManager.getCache("users").clear();
     }
 
     @Test
-
     public void get() {
         User user = service.get(ADMIN_ID);
         assertMatch(user, ADMIN);
@@ -38,14 +37,13 @@ public class UserServiceTest extends BaseServiceTest {
 
     @Test
     public void duplicateMailCreate() throws Exception {
-        thrown.expect(DataAccessException.class);
-        service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER));
+        assertThrows(DataAccessException.class, () ->
+                service.create(new User(null, "Duplicate", "user@yandex.ru", "newPass", Role.ROLE_USER)));
     }
 
     @Test
     public void getNotFound() {
-        thrown.expect(NotFoundException.class);
-        service.get(1);
+        assertThrows(NotFoundException.class, () -> service.get(1));
     }
 
     @Test
@@ -62,8 +60,7 @@ public class UserServiceTest extends BaseServiceTest {
 
     @Test
     public void deleteNotFound() {
-        thrown.expect(NotFoundException.class);
-        service.delete(1);
+        assertThrows(NotFoundException.class, () -> service.delete(1));
     }
 
     @Test
