@@ -1,6 +1,7 @@
 package ru.votingsystem.web.restaurant;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -9,14 +10,13 @@ import ru.votingsystem.model.Restaurant;
 import java.net.URI;
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static ru.votingsystem.util.ValidationUtil.checkNew;
 
 @RestController
-@RequestMapping(value = RestaurantRestController.REST_URL, consumes = APPLICATION_JSON_VALUE)
+@RequestMapping(value = RestaurantRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class RestaurantRestController extends AbstractRestaurantController {
 
-    static final String REST_URL = "/rest/profile/restaurant";
+    static final String REST_URL = "/rest/profile/restaurants";
 
     @Override
     @GetMapping
@@ -37,7 +37,7 @@ public class RestaurantRestController extends AbstractRestaurantController {
         super.delete(id);
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
         checkNew(restaurant);
         Restaurant created = super.create(restaurant);
@@ -48,7 +48,7 @@ public class RestaurantRestController extends AbstractRestaurantController {
     }
 
     @Override
-    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void update(@RequestBody Restaurant restaurant, @PathVariable int id) {
         super.update(restaurant, id);
