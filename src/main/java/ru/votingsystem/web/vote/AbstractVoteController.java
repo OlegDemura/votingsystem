@@ -42,11 +42,11 @@ public abstract class AbstractVoteController {
         return service.create(vote, userId, restaurant);
     }
 
-    public void update(Vote vote, int restaurant) {
+    public void update(Vote vote, int restaurantId) {
         int userId = SecurityUtil.authUserId();
-        assureIdConsistent(vote, restaurant);
-        log.info("update vote {} from {}", vote, restaurant);
-        service.update(vote, userId, restaurant);
+        assureIdConsistent(vote, restaurantId);
+        log.info("update vote {} from {}", vote, restaurantId);
+        service.update(vote, userId, restaurantId);
     }
 
 }

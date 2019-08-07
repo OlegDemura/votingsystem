@@ -1,35 +1,56 @@
 package ru.votingsystem.web.restaurant;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.votingsystem.model.Restaurant;
 
+import java.net.URI;
 import java.util.List;
 
-@Controller
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
+import static ru.votingsystem.util.ValidationUtil.checkNew;
+
+@RestController
+@RequestMapping(value = RestaurantRestController.REST_URL, consumes = APPLICATION_JSON_VALUE)
 public class RestaurantRestController extends AbstractRestaurantController {
 
+    static final String REST_URL = "/rest/profile/restaurant";
+
     @Override
+    @GetMapping
     public List<Restaurant> getAll() {
         return super.getAll();
     }
 
     @Override
-    public Restaurant get(int id) {
+    @GetMapping("/{id}")
+    public Restaurant get(@PathVariable int id) {
         return super.get(id);
     }
 
     @Override
-    public void delete(int id) {
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable int id) {
         super.delete(id);
     }
 
-    @Override
-    public Restaurant create(Restaurant restaurant) {
-        return super.create(restaurant);
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
+        checkNew(restaurant);
+        Restaurant created = super.create(restaurant);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentRequestUri()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(created.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
     @Override
-    public void update(Restaurant restaurant, int id) {
+    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@RequestBody Restaurant restaurant, @PathVariable int id) {
         super.update(restaurant, id);
     }
 }

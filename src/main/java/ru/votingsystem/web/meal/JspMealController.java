@@ -6,13 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import ru.votingsystem.model.Meal;
 
 import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
 @Controller
-@RequestMapping("/meals")
+@RequestMapping(value = "/meals")
 public class JspMealController extends AbstractMealController {
 
     @GetMapping
@@ -36,20 +35,20 @@ public class JspMealController extends AbstractMealController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        Meal meal = new Meal("", 1000F, LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+        Meal meal = new Meal("", 1000, LocalDate.now());
         model.addAttribute("meal", meal);
         return "mealForm";
     }
 
     @PostMapping
-    public String save(HttpServletRequest request) {
+    public String updateOrCreate(HttpServletRequest request) {
         Meal meal = new Meal(request.getParameter("description"),
-                Float.valueOf(request.getParameter("price")),
-                LocalDateTime.parse(request.getParameter("dateTime")));
+                Integer.valueOf(request.getParameter("price")),
+                LocalDate.parse(request.getParameter("dateTime")));
         if (request.getParameter("id").isEmpty()) {
             super.create(meal, getId(request, "restaurantId"));
         } else {
-            super.update(meal, getId(request, "restaurantId"));
+            super.update(meal, getId(request, "restaurantId"), getId(request, "id"));
         }
         return "redirect:/meals";
     }

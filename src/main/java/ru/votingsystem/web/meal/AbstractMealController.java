@@ -31,7 +31,7 @@ public abstract class AbstractMealController {
         service.delete(id, restaurantId);
     }
 
-    public void update(Meal meal, int restaurantId) {
+    public void update(Meal meal, int restaurantId, int id) {
         log.info("create {} for {}", meal, restaurantId);
         service.update(meal, restaurantId);
     }
