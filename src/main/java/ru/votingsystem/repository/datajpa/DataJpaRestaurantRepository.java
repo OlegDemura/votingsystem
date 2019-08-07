@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class DataJpaRestaurantRepository {
-    private static final Sort SORT_NAME_EMAIL = new Sort(Sort.Direction.ASC, "name");
+    private static final Sort SORT_NAME = new Sort(Sort.Direction.ASC, "name");
 
     @Autowired
     private CrudRestaurantRepository crudRestaurantRepository;
@@ -29,7 +29,7 @@ public class DataJpaRestaurantRepository {
     }
 
     public List<Restaurant> getAll() {
-        return crudRestaurantRepository.findAll(SORT_NAME_EMAIL);
+        return crudRestaurantRepository.findAll(SORT_NAME);
     }
 
     public Restaurant getWithMeals(int restaurantId) {
