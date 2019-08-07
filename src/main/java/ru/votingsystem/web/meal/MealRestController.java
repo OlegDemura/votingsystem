@@ -44,8 +44,8 @@ public class MealRestController extends AbstractMealController {
         super.update(meal, restaurantId, id);
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Meal> createWithLocation(@RequestBody Meal meal, int restaurantId) {
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/{restaurantId}")
+    public ResponseEntity<Meal> createWithLocation(@RequestBody Meal meal, @PathVariable int restaurantId) {
         checkNew(meal);
         Meal created = super.create(meal, restaurantId);
 

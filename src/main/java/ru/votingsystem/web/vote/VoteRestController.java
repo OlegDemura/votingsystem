@@ -36,8 +36,8 @@ public class VoteRestController extends AbstractVoteController {
         super.delete(id, restaurantId);
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE)
-    public ResponseEntity<Vote> createWithLocation(@RequestBody Vote vote, int restaurantId) {
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/{restaurantId}")
+    public ResponseEntity<Vote> createWithLocation(@RequestBody Vote vote, @PathVariable int restaurantId) {
         checkNew(vote);
         Vote created = super.create(vote, restaurantId);
 
@@ -47,10 +47,4 @@ public class VoteRestController extends AbstractVoteController {
         return ResponseEntity.created(uriOfNewResource).body(created);
     }
 
-    @Override
-    @PutMapping(value = "/{restaurantId}", consumes = APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Vote vote, @PathVariable int restaurantId) {
-        super.update(vote, restaurantId);
-    }
 }
