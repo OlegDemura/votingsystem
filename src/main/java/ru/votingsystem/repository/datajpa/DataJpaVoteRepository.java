@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.votingsystem.model.Vote;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -19,7 +20,7 @@ public class DataJpaVoteRepository {
     private CrudUserRepository userRepository;
 
     public Vote save(Vote vote, int userId, int restaurantId) {
-        if (!vote.isNew() && get(vote.getId(), restaurantId) == null) {
+        if (!vote.isNew() && get(vote.getId(), restaurantId, LocalDate.now()) == null) {
             return null;
         }
 
@@ -32,8 +33,8 @@ public class DataJpaVoteRepository {
         return repository.delete(id, userId, restaurantId) != 0;
     }
 
-    public Vote get(int id, int restaurantId) {
-        return repository.getOneVote(id, restaurantId);
+    public Vote get(int id, int restaurantId, LocalDate localDate) {
+        return repository.getOneVote(id, restaurantId, localDate);
     }
 
     public List<Vote> getAll(int restaurantId) {
