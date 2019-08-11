@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.votingsystem.model.Vote;
 import ru.votingsystem.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,20 +28,20 @@ public class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     public void get() {
-        Vote vote = service.get(VOTE1_ID, RESTAURANT2_ID);
+        Vote vote = service.get(VOTE1_ID, RESTAURANT2_ID, LocalDate.of(2019, 6, 7));
         assertMatch(vote, VOTE1);
     }
 
     @Test
     public void getNotFound() {
         assertThrows(NotFoundException.class, () ->
-                service.get(1, RESTAURANT1_ID));
+                service.get(1, RESTAURANT1_ID, LocalDate.of(2019, 6, 7)));
     }
 
     @Test
     public void getNotOwn() {
         assertThrows(NotFoundException.class, () ->
-                service.get(VOTE1_ID, RESTAURANT1_ID));
+                service.get(VOTE1_ID, RESTAURANT1_ID, LocalDate.of(2019, 6, 7)));
     }
 
     @Test
@@ -65,7 +66,7 @@ public class VoteServiceTest extends AbstractServiceTest {
     public void update() {
         Vote voteUpdate = getUpdate();
         service.update(voteUpdate, ADMIN_ID, RESTAURANT1_ID);
-        assertMatch(service.get(voteUpdate.getId(), RESTAURANT1_ID), voteUpdate);
+        assertMatch(service.get(voteUpdate.getId(), RESTAURANT1_ID, LocalDate.of(2019, 6, 7)), voteUpdate);
     }
 
     @Test
@@ -78,7 +79,7 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     public void updateNotOwn() {
         Vote voteUpdate = getUpdate();
-        assertThrows(NotFoundException.class,()->
+        assertThrows(NotFoundException.class, () ->
                 service.update(voteUpdate, USER_ID, RESTAURANT2_ID));
     }
 
