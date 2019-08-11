@@ -24,7 +24,7 @@ public class Meal extends AbstractBaseEntity {
     private String description;
 
     @Column(name = "price", nullable = false)
-    @Range(min = 0, max = 10000)
+    @Range(min = 0, max = 100000)
     private Integer price;
 
     @Column(name = "date_lunch", nullable = false, columnDefinition = "timestamp default now()")
