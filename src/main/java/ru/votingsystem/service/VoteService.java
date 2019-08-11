@@ -7,6 +7,7 @@ import ru.votingsystem.model.Vote;
 import ru.votingsystem.repository.datajpa.DataJpaVoteRepository;
 import ru.votingsystem.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
@@ -24,8 +25,8 @@ public class VoteService {
         return repository.getAll(restaurantId);
     }
 
-    public Vote get(int id, int restaurantId) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id, restaurantId), id);
+    public Vote get(int id, int restaurantId, LocalDate localDate) throws NotFoundException {
+        return checkNotFoundWithId(repository.get(id, restaurantId, localDate), id);
     }
 
     public void delete(int id, int userId, int restaurantId) {
