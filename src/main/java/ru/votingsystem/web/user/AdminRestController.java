@@ -20,10 +20,10 @@ public class AdminRestController extends AbstractUserController {
 
     static final String REST_URL = "/rest/admin/users";
 
+    @Override
     @GetMapping
     public List<User> getAll() {
-        log.info("getAll");
-        return service.getAll();
+        return super.getAll();
     }
 
     @Override
