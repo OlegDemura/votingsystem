@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.votingsystem.model.Vote;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -23,10 +24,9 @@ public class VoteRestController extends AbstractVoteController {
         return super.getAll(restaurantId);
     }
 
-    @Override
     @GetMapping(value = "/{restaurantId}/{id}", consumes = APPLICATION_JSON_VALUE)
     public Vote get(@PathVariable int id, @PathVariable int restaurantId) {
-        return super.get(id, restaurantId);
+        return super.get(id, restaurantId, LocalDate.now());
     }
 
     @Override

@@ -3,11 +3,11 @@ package ru.votingsystem.web.vote;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import ru.votingsystem.model.Vote;
 import ru.votingsystem.service.VoteService;
 import ru.votingsystem.web.SecurityUtil;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
@@ -24,9 +24,9 @@ public abstract class AbstractVoteController {
         return service.getAll(restaurantId);
     }
 
-    public Vote get(int id, int restaurantId) {
-        log.info("get {} from {}", id, restaurantId);
-        return service.get(id, restaurantId);
+    public Vote get(int id, int restaurantId, LocalDate localDate) {
+        log.info("get {} from {} where localDate {}", id, restaurantId, localDate);
+        return service.get(id, restaurantId, localDate);
     }
 
     public void delete(int id, int restaurantId) {
