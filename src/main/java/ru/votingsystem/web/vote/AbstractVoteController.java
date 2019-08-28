@@ -19,7 +19,13 @@ public abstract class AbstractVoteController {
     @Autowired
     private VoteService service;
 
-    public List<Vote> getAll(int restaurantId) {
+    public Vote vote(Integer userId, Integer restaurantId){
+        log.info("voting for restaurantId {} from userId {}", restaurantId, userId);
+
+        return service.vote(userId, restaurantId);
+    }
+
+    /*public List<Vote> getAll(int restaurantId) {
         log.info("getAll");
         return service.getAll(restaurantId);
     }
@@ -47,6 +53,6 @@ public abstract class AbstractVoteController {
         assureIdConsistent(vote, restaurantId);
         log.info("update vote {} from {}", vote, restaurantId);
         service.update(vote, userId, restaurantId);
-    }
+    }*/
 
 }

@@ -15,7 +15,7 @@ import java.util.Objects;
 @RequestMapping("/votes")
 public class JspVoteController extends AbstractVoteController {
 
-    @GetMapping
+   /* @GetMapping
     public String getAll(Model model, HttpServletRequest request) {
         List<Vote> list = super.getAll(getId(request, "restaurantId"));
         model.addAttribute("votes", list);
@@ -37,5 +37,5 @@ public class JspVoteController extends AbstractVoteController {
     private int getId(HttpServletRequest request, String param) {
         String paramId = Objects.requireNonNull(request.getParameter(param));
         return Integer.valueOf(paramId);
-    }
+    }*/
 }
