@@ -21,8 +21,7 @@ public class RootController {
     }
 
     @GetMapping("/users")
-    public String users(Model model) {
-        model.addAttribute("users", service.getAll());
+    public String users() {
         return "users";
     }
 
@@ -31,5 +30,15 @@ public class RootController {
         int userId = Integer.parseInt(request.getParameter("userId"));
         SecurityUtil.setAuthId(userId);
         return "redirect:restaurants";
+    }
+
+    @GetMapping("/meals")
+    public String getMeals(){
+        return "meals";
+    }
+
+    @GetMapping("/restaurants")
+    public String getRestaurants(){
+        return "restaurants";
     }
 }
