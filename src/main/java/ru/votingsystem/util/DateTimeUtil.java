@@ -9,6 +9,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 public class DateTimeUtil {
+    public static final LocalTime DEFAULT_EXPIRED_TIME = LocalTime.parse("11:00");
+
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     // DataBase doesn't support LocalDate.MIN/MAX
