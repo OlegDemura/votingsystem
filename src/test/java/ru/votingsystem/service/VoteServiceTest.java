@@ -3,17 +3,13 @@ package ru.votingsystem.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.votingsystem.model.Vote;
-import ru.votingsystem.util.exception.NotFoundException;
 import ru.votingsystem.util.exception.VoteRepeatException;
 
-import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT1_ID;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
 import static ru.votingsystem.UserTestData.ADMIN_ID;
-import static ru.votingsystem.UserTestData.USER_ID;
 import static ru.votingsystem.VoteTestData.*;
 
 public class VoteServiceTest extends AbstractServiceTest {
