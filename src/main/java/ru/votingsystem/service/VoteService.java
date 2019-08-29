@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.util.Optional;
 
 import static ru.votingsystem.util.DateTimeUtil.DEFAULT_EXPIRED_TIME;
+import static ru.votingsystem.util.DateTimeUtil.currentDate;
 
 @Service
 public class VoteService {
@@ -30,7 +31,7 @@ public class VoteService {
     }
 
     public Vote vote(Integer userId, Integer restaurantId) {
-        Optional<Vote> votes = voteRepository.findByUserIdAndDateVoting(userId, LocalDate.now());
+        Optional<Vote> votes = voteRepository.findByUserIdAndDateVoting(userId, currentDate());
         return voteRepository.save(votes.map(v -> {
             if (LocalTime.now().isBefore(DEFAULT_EXPIRED_TIME)) {
                 throw new VoteRepeatException("today the voting time has expired");
