@@ -47,4 +47,8 @@ public class DateTimeUtil {
     public static LocalDateTime parseLocalDateTime(@Nullable String str) {
         return StringUtils.isEmpty(str) ? null : LocalDateTime.parse(str);
     }
+
+    public static LocalDate currentDate(){
+        return LocalDate.now();
+    }
 }
