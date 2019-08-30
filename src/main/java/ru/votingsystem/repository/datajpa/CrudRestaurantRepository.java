@@ -15,8 +15,4 @@ public interface CrudRestaurantRepository extends JpaRepository<Restaurant, Inte
     @Modifying
     @Query("DELETE FROM Restaurant r where r.id=:id")
     int delete(@Param("id") int restaurantId);
-
-    @EntityGraph(attributePaths = "meals", type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT r FROM Restaurant r JOIN FETCH r.meals WHERE r.id=?1")
-    Restaurant getWithMeals(int restaurantId);
 }

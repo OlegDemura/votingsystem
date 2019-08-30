@@ -31,8 +31,4 @@ public class DataJpaRestaurantRepository {
     public List<Restaurant> getAll() {
         return crudRestaurantRepository.findAll(SORT_NAME);
     }
-
-    public Restaurant getWithMeals(int restaurantId) {
-        return crudRestaurantRepository.getWithMeals(restaurantId);
-    }
 }

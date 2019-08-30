@@ -24,8 +24,5 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Query("SELECT m FROM Meal m WHERE m.id = :id AND m.restaurant.id = :restaurantId")
     Meal getOneMeal(@Param("id") int id, @Param("restaurantId") int restaurantId);
 
-    @EntityGraph(attributePaths = "restaurant", type = EntityGraph.EntityGraphType.LOAD)
-    @Query("SELECT m FROM Meal m JOIN FETCH m.restaurant WHERE m.id=?1 AND m.restaurant.id=?2 ORDER BY m.date DESC")
-    Meal getWithRestaurant(int id, int restaurantId);
 }
 
