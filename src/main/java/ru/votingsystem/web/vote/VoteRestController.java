@@ -26,7 +26,7 @@ public class VoteRestController {
         this.service = service;
     }
 
-    @GetMapping(value = "/{restaurantId}")
+    @PostMapping(value = "/{restaurantId}")
     @ResponseStatus(value = HttpStatus.OK)
     public void voting(@PathVariable int restaurantId) {
         log.info("voting for restaurantId {} from userId {}", restaurantId, authUserId());
