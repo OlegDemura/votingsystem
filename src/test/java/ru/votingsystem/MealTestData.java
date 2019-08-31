@@ -3,7 +3,6 @@ package ru.votingsystem;
 import ru.votingsystem.model.Meal;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
