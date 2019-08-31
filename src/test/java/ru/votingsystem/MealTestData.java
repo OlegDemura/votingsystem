@@ -27,7 +27,7 @@ public class MealTestData {
     }
 
     public static Meal getUpdate() {
-        return new Meal(MEAL1_ID, "Новое название", 500, MEAL1.getDateTime());
+        return new Meal(MEAL1_ID, "Новое название", 500, MEAL1.getDate());
     }
 
     public static void assertMatch(Meal actual, Meal expected) {
