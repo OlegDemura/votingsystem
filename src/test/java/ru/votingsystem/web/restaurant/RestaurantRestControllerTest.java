@@ -9,7 +9,6 @@ import ru.votingsystem.service.RestaurantService;
 import ru.votingsystem.web.AbstractControllerTest;
 import ru.votingsystem.web.json.JsonUtil;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
