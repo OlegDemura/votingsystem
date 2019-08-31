@@ -67,7 +67,7 @@ public class Meal extends AbstractBaseEntity {
         this.price = price;
     }
 
-    public LocalDate getDateTime() {
+    public LocalDate getDate() {
         return date;
     }
 
