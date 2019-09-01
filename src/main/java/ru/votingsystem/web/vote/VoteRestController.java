@@ -43,16 +43,16 @@ public class VoteRestController {
     @GetMapping(value = "/count/{restaurantId}")
     @ResponseStatus(value = HttpStatus.OK)
     public Integer countAllByRestaurantIdAndDateVoting(@PathVariable int restaurantId, @RequestParam LocalDate localDate){
-        //TODO Need think
-        log.info("count all");
+        log.info("count for restaurant {} for date {}", restaurantId, localDate);
         return service.countAllByRestaurantIdAndDateVoting(restaurantId, localDate);
     }
 
     @GetMapping(value = "/countwithfilter/{restaurantId}")
+    @ResponseStatus(value = HttpStatus.OK)
     public Integer countAllByRestaurantIdAndDateVotingBetween(@PathVariable int restaurantId,
                                                            @RequestParam(required = false) LocalDate startDate,
                                                            @RequestParam(required = false) LocalDate endDate){
-        //TODO Need think
+        log.info("count for restaurant {} between dates {} and {}", restaurantId, startDate, endDate);
         return service.countAllByRestaurantIdAndDateVotingBetween(restaurantId, startDate, endDate);
     }
 }
