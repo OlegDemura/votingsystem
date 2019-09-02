@@ -9,7 +9,7 @@ import ru.votingsystem.util.exception.VoteRepeatException;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT1_ID;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
-import static ru.votingsystem.UserTestData.ADMIN_ID;
+import static ru.votingsystem.UserTestData.USER_ID;
 import static ru.votingsystem.VoteTestData.*;
 
 public class VoteServiceTest extends AbstractServiceTest {
@@ -20,14 +20,15 @@ public class VoteServiceTest extends AbstractServiceTest {
     @Test
     void vote(){
         Vote voteCreate = getCreate();
-        Vote newVote = service.vote(ADMIN_ID, RESTAURANT1_ID);
+        Vote newVote = service.vote(USER_ID, RESTAURANT1_ID);
         voteCreate.setId(newVote.getId());
         assertMatch(voteCreate, newVote);
     }
 
     @Test
     void voteRepeat(){
-        service.vote(ADMIN_ID, RESTAURANT1_ID);
-        assertThrows(VoteRepeatException.class, ()->service.vote(ADMIN_ID, RESTAURANT2_ID));
+        service.vote(USER_ID, RESTAURANT1_ID);
+        //TODO Need think how change time for tests
+        assertThrows(VoteRepeatException.class, ()->service.vote(USER_ID, RESTAURANT2_ID));
     }
 }
