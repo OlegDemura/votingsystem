@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.votingsystem.model.User;
 import ru.votingsystem.repository.datajpa.DataJpaUserRepository;
+import ru.votingsystem.to.UserTo;
+import ru.votingsystem.util.UserUtil;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import java.util.List;
@@ -53,7 +55,14 @@ public class UserService {
     @CacheEvict(value = "users", allEntries = true)
     public void update(User user) throws NotFoundException {
         Assert.notNull(user, "user must not be null");
-        checkNotFoundWithId(repository.save(user), user.getId());
+        repository.save(user);
+    }
+
+    @CacheEvict(value = "users", allEntries = true)
+    @Transactional
+    public void update(UserTo userTo) {
+        User user = get(userTo.id());
+        repository.save(UserUtil.updateFromTo(user, userTo));
     }
 
     @CacheEvict(value = "users", allEntries = true)
