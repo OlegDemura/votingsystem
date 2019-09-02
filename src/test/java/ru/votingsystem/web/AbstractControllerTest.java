@@ -19,7 +19,7 @@ import javax.annotation.PostConstruct;
         "classpath:spring/spring-db.xml"
         })
 @Transactional
-abstract class AbstractControllerTest {
+public abstract class AbstractControllerTest {
 
     private static final CharacterEncodingFilter CHARACTER_ENCODING_FILTER = new CharacterEncodingFilter();
 
