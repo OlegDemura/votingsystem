@@ -1,11 +1,23 @@
 package ru.votingsystem.to;
 
-public class UserTo extends BaseTo {
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
+public class UserTo extends BaseTo {
+    private static final long serialVersionUID = 1L;
+
+    @NotBlank
+    @Size(min = 2, max = 100)
     private String name;
 
+    @Email
+    @NotBlank
+    @Size(max = 100)
     private String email;
 
+    @NotBlank
+    @Size(min = 5, max = 32, message = "length must be between 5 and 32 characters")
     private String password;
 
     public UserTo() {
@@ -40,10 +52,6 @@ public class UserTo extends BaseTo {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public boolean isNew() {
-        return id == null;
     }
 
     @Override
