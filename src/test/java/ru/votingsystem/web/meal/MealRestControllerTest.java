@@ -18,8 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static ru.votingsystem.MealTestData.*;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT1_ID;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
-import static ru.votingsystem.TestUtil.readFromJson;
-import static ru.votingsystem.TestUtil.readFromJsonMvcResult;
+import static ru.votingsystem.TestUtil.*;
+import static ru.votingsystem.UserTestData.ADMIN;
 
 class MealRestControllerTest extends AbstractControllerTest {
 
@@ -30,14 +30,16 @@ class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testGetAll() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT1_ID))
+        mockMvc.perform(get(REST_URL + RESTAURANT1_ID)
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     @Test
     void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID))
+        mockMvc.perform(get(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+                .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(result -> assertMatch(readFromJsonMvcResult(result, Meal.class), MEAL1));
@@ -45,7 +47,8 @@ class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID))
+        mockMvc.perform(delete(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+                .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertMatch(service.getAll(RESTAURANT2_ID), MEAL3, MEAL2);
@@ -56,6 +59,7 @@ class MealRestControllerTest extends AbstractControllerTest {
         Meal update = new Meal(MEAL1.getId(), MEAL1.getDescription(), MEAL1.getPrice(), MEAL1.getDate());
         update.setDescription("UpdateDescription");
         mockMvc.perform(put(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+                .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(update)))
                 .andExpect(status().isNoContent());
@@ -67,6 +71,7 @@ class MealRestControllerTest extends AbstractControllerTest {
     void testCreate() throws Exception {
         Meal expected = new Meal("New Meal", 750, LocalDate.now());
         ResultActions action = mockMvc.perform(post(REST_URL + RESTAURANT2_ID)
+                .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)))
                 .andExpect(status().isCreated());

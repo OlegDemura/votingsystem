@@ -13,6 +13,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT1_ID;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
+import static ru.votingsystem.TestUtil.userHttpBasic;
+import static ru.votingsystem.UserTestData.USER;
 import static ru.votingsystem.web.SecurityUtil.authUserId;
 
 
@@ -24,15 +26,19 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testVoting() throws Exception {
-        mockMvc.perform(post(REST_URL + RESTAURANT2_ID))
+        mockMvc.perform(post(REST_URL + RESTAURANT2_ID)
+                .with(userHttpBasic(USER)))
                 .andExpect(status().isOk());
         service.countAllByRestaurantIdAndDateVoting(RESTAURANT2_ID, LocalDate.now());
     }
 
     @Test
     void testDeleteVoteByUserIdAndDateVoting() throws Exception {
-        service.vote(authUserId(), RESTAURANT2_ID);
-        mockMvc.perform(delete(REST_URL))
+        mockMvc.perform(post(REST_URL + RESTAURANT2_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isOk());
+        mockMvc.perform(delete(REST_URL)
+                .with(userHttpBasic(USER)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
     }
@@ -40,7 +46,8 @@ class VoteRestControllerTest extends AbstractControllerTest {
     @Test
     void testCountAllByRestaurantIdAndDateVoting() throws Exception {
         mockMvc.perform(get(REST_URL + "count/" + RESTAURANT2_ID)
-                .param("localDate", "2019-07-06"))
+                .param("localDate", "2019-07-06")
+                .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("1"));
     }
@@ -49,7 +56,8 @@ class VoteRestControllerTest extends AbstractControllerTest {
     void testCountAllByRestaurantIdAndDateVotingBetween() throws Exception {
         mockMvc.perform(get(REST_URL + "countwithfilter/" + RESTAURANT1_ID)
                 .param("startDate", "2019-07-06")
-                .param("endDate", "2019-07-08"))
+                .param("endDate", "2019-07-08")
+                .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().string("2"));
     }
