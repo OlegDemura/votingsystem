@@ -52,4 +52,9 @@ public abstract class AbstractUserController {
         assureIdConsistent(userTo, id);
         service.update(userTo);
     }
+
+    public void enable(int id, boolean enabled) {
+        log.info(enabled ? "enable {}" : "disable {}", id);
+        service.enable(id, enabled);
+    }
 }
