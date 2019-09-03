@@ -9,6 +9,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import ru.votingsystem.service.MealService;
+import ru.votingsystem.service.RestaurantService;
 import ru.votingsystem.service.UserService;
 
 import javax.annotation.PostConstruct;
@@ -36,6 +38,12 @@ public abstract class AbstractControllerTest {
     private CacheManager cacheManager;
 
     @Autowired
+    protected MealService mealService;
+
+    @Autowired
+    protected RestaurantService restaurantService;
+
+    @Autowired
     protected UserService userService;
 
     @Autowired
@@ -53,5 +61,7 @@ public abstract class AbstractControllerTest {
     @BeforeEach
     void setUp() {
         cacheManager.getCache("users").clear();
+        cacheManager.getCache("meals").clear();
+        cacheManager.getCache("restaurants").clear();
     }
 }

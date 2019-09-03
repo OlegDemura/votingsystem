@@ -32,8 +32,4 @@ public class TestUtil {
     public static RequestPostProcessor userHttpBasic(User user) {
         return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
     }
-
-    public static <T> void assertMatch(T actual, T expected){
-        assertThat(actual).isEqualTo(expected);
-    }
 }

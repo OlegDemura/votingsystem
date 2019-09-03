@@ -54,7 +54,7 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testCountAllByRestaurantIdAndDateVotingBetween() throws Exception {
-        mockMvc.perform(get(REST_URL + "countwithfilter/" + RESTAURANT1_ID)
+        mockMvc.perform(get(REST_URL + "countwithfilter/" + RESTAURANT2_ID)
                 .param("startDate", "2019-07-06")
                 .param("endDate", "2019-07-08")
                 .with(userHttpBasic(USER)))

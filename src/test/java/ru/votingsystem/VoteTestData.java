@@ -40,4 +40,7 @@ public class VoteTestData {
         assertThat(actual).usingElementComparatorIgnoringFields("restaurant", "user").isEqualTo(expected);
     }
 
+    public static void assertMatch(Integer actual, Integer expected){
+        assertThat(actual).isEqualTo(expected);
+    }
 }

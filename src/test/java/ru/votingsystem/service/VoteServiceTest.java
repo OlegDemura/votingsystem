@@ -15,7 +15,6 @@ import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
 import static ru.votingsystem.UserTestData.ADMIN_ID;
 import static ru.votingsystem.UserTestData.USER_ID;
 import static ru.votingsystem.VoteTestData.*;
-import static ru.votingsystem.TestUtil.*;
 
 class VoteServiceTest extends AbstractServiceTest {
 

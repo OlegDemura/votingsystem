@@ -23,10 +23,6 @@
     </mvc:annotation-driven>
     <context:component-scan base-package="ru.votingsystem.**.web"/>
 
-    <mvc:resources mapping="/resources/**" location="/resources/"/>
-
-    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
-
     <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean" id="conversionService">
         <property name="formatters">
             <set>

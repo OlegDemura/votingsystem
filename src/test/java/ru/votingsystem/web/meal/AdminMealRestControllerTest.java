@@ -21,12 +21,9 @@ import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
 import static ru.votingsystem.TestUtil.*;
 import static ru.votingsystem.UserTestData.ADMIN;
 
-class MealRestControllerTest extends AbstractControllerTest {
+class AdminMealRestControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = MealRestController.REST_URL + "/";
-
-    @Autowired
-    private MealService service;
+    private static final String REST_URL = AdminMealRestController.REST_URL + "/";
 
     @Test
     void testGetAll() throws Exception {
@@ -51,7 +48,7 @@ class MealRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertMatch(service.getAll(RESTAURANT2_ID), MEAL3, MEAL2);
+        assertMatch(mealService.getAll(RESTAURANT2_ID), MEAL3, MEAL2);
     }
 
     @Test
@@ -64,7 +61,7 @@ class MealRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(update)))
                 .andExpect(status().isNoContent());
 
-        assertMatch(service.get(MEAL1_ID, RESTAURANT2_ID), update);
+        assertMatch(mealService.get(MEAL1_ID, RESTAURANT2_ID), update);
     }
 
     @Test
@@ -80,6 +77,6 @@ class MealRestControllerTest extends AbstractControllerTest {
         expected.setId(returned.getId());
 
         assertMatch(returned, expected);
-        assertMatch(service.getAll(RESTAURANT2_ID), expected, MEAL1, MEAL3, MEAL2);
+        assertMatch(mealService.getAll(RESTAURANT2_ID), expected, MEAL1, MEAL3, MEAL2);
     }
 }
