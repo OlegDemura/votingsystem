@@ -14,6 +14,7 @@ import java.util.Optional;
 
 import static ru.votingsystem.util.DateTimeUtil.DEFAULT_EXPIRED_TIME;
 import static ru.votingsystem.util.DateTimeUtil.currentDate;
+import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteService {
@@ -41,8 +42,8 @@ public class VoteService {
         }).orElse(new Vote(LocalDate.now(), userRepository.get(userId), restaurantRepository.get(restaurantId))));
     }
 
-    public Integer deleteVoteByUserIdAndDateVoting(Integer userId, LocalDate date) {
-        return voteRepository.deleteVoteByUserIdAndDateVoting(userId, date);
+    public void deleteVoteByUserIdAndDateVoting(Integer userId, LocalDate date) {
+        checkNotFoundWithId(voteRepository.deleteVoteByUserIdAndDateVoting(userId, date), userId);
     }
 
     public Integer countAllByRestaurantIdAndDateVoting(Integer restaurantId, LocalDate date) {
