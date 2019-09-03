@@ -20,12 +20,8 @@ public class VoteRestController {
 
     static final String REST_URL = "/rest/vote";
 
-    private VoteService service;
-
     @Autowired
-    public VoteRestController(VoteService service) {
-        this.service = service;
-    }
+    private VoteService service;
 
     @PostMapping(value = "/{restaurantId}")
     @ResponseStatus(value = HttpStatus.OK)
