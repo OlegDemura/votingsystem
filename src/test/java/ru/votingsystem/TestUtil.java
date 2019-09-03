@@ -10,6 +10,8 @@ import ru.votingsystem.web.json.JsonUtil;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class TestUtil {
     public static String getContent(MvcResult result) throws UnsupportedEncodingException {
         return result.getResponse().getContentAsString();
@@ -29,5 +31,9 @@ public class TestUtil {
 
     public static RequestPostProcessor userHttpBasic(User user) {
         return SecurityMockMvcRequestPostProcessors.httpBasic(user.getEmail(), user.getPassword());
+    }
+
+    public static <T> void assertMatch(T actual, T expected){
+        assertThat(actual).isEqualTo(expected);
     }
 }
