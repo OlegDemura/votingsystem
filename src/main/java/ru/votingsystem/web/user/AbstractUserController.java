@@ -3,7 +3,6 @@ package ru.votingsystem.web.user;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import ru.votingsystem.model.User;
 import ru.votingsystem.service.UserService;
 import ru.votingsystem.to.UserTo;
@@ -13,7 +12,6 @@ import java.util.List;
 import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
 import static ru.votingsystem.util.ValidationUtil.checkNew;
 
-@Controller
 public abstract class AbstractUserController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
