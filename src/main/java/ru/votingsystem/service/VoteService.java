@@ -31,10 +31,10 @@ public class VoteService {
         this.userRepository = userRepository;
     }
 
-    public Vote vote(Integer userId, Integer restaurantId) {
+    public Vote vote(Integer userId, Integer restaurantId, LocalTime time) {
         Optional<Vote> votes = voteRepository.findByUserIdAndDateVoting(userId, currentDate());
         return voteRepository.save(votes.map(v -> {
-            if (LocalTime.now().isAfter(DEFAULT_EXPIRED_TIME)) {
+            if (time.isAfter(DEFAULT_EXPIRED_TIME)) {
                 throw new VoteRepeatException("today the voting time has expired");
             }
             v.setRestaurant(restaurantRepository.get(restaurantId));
