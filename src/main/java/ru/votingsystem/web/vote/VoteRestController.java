@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.votingsystem.service.VoteService;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static ru.votingsystem.util.DateTimeUtil.*;
 import static ru.votingsystem.web.SecurityUtil.authUserId;
@@ -30,7 +31,7 @@ public class VoteRestController {
     @ResponseStatus(value = HttpStatus.OK)
     public void voting(@PathVariable int restaurantId) {
         log.info("voting for restaurantId {} from userId {}", restaurantId, authUserId());
-        service.vote(authUserId(), restaurantId);
+        service.vote(authUserId(), restaurantId, LocalTime.now());
     }
 
     @DeleteMapping
