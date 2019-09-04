@@ -20,6 +20,7 @@ import static ru.votingsystem.RestaurantTestData.RESTAURANT1_ID;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
 import static ru.votingsystem.TestUtil.*;
 import static ru.votingsystem.UserTestData.ADMIN;
+import static ru.votingsystem.UserTestData.USER;
 
 class AdminMealRestControllerTest extends AbstractControllerTest {
 
@@ -52,6 +53,13 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void testDeleteForbidden() throws Exception {
+        mockMvc.perform(delete(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     void testUpdate() throws Exception {
         Meal update = new Meal(MEAL1.getId(), MEAL1.getDescription(), MEAL1.getPrice(), MEAL1.getDate());
         update.setDescription("UpdateDescription");
@@ -62,6 +70,13 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isNoContent());
 
         assertMatch(mealService.get(MEAL1_ID, RESTAURANT2_ID), update);
+    }
+
+    @Test
+    void testUpdateForbidden() throws Exception {
+        mockMvc.perform(put(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -78,5 +93,12 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
 
         assertMatch(returned, expected);
         assertMatch(mealService.getAll(RESTAURANT2_ID), expected, MEAL1, MEAL3, MEAL2);
+    }
+
+    @Test
+    void testCreateForbidden() throws Exception {
+        mockMvc.perform(post(REST_URL + RESTAURANT2_ID)
+                .with(userHttpBasic(USER)))
+                .andExpect(status().isForbidden());
     }
 }
