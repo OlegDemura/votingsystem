@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.votingsystem.model.User;
 import ru.votingsystem.service.UserService;
 import ru.votingsystem.to.UserTo;
+import ru.votingsystem.util.UserUtil;
 
 import java.util.List;
 
@@ -32,6 +33,11 @@ public abstract class AbstractUserController {
         log.info("create {}", user);
         checkNew(user);
         return service.create(user);
+    }
+
+    public User create(UserTo userTo) {
+        log.info("create {}", userTo);
+        return create(UserUtil.createNewFromTo(userTo));
     }
 
     public void delete(int id) {
