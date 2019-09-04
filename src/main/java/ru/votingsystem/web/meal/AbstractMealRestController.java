@@ -3,22 +3,16 @@ package ru.votingsystem.web.meal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.votingsystem.model.Meal;
 import ru.votingsystem.service.MealService;
 
-import java.net.URI;
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
 import static ru.votingsystem.util.ValidationUtil.checkNew;
 
 
-public class AbstractMealRestController {
+public abstract class AbstractMealRestController {
     protected final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
