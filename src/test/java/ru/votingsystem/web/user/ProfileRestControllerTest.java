@@ -2,6 +2,7 @@ package ru.votingsystem.web.user;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.votingsystem.model.User;
 import ru.votingsystem.to.UserTo;
@@ -13,6 +14,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static ru.votingsystem.TestUtil.readFromJson;
 import static ru.votingsystem.TestUtil.userHttpBasic;
 import static ru.votingsystem.UserTestData.*;
 import static ru.votingsystem.web.user.ProfileRestController.REST_URL;
@@ -53,5 +55,23 @@ class ProfileRestControllerTest extends AbstractControllerTest {
     void getUnAuth() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void register() throws Exception {
+        UserTo createdTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword");
+
+        ResultActions action = mockMvc.perform(MockMvcRequestBuilders.post(REST_URL + "/register")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(createdTo)))
+                .andDo(print())
+                .andExpect(status().isCreated());
+        User returned = readFromJson(action, User.class);
+
+        User created = UserUtil.createNewFromTo(createdTo);
+        created.setId(returned.getId());
+
+        assertMatch(returned, created);
+        assertMatch(userService.getByEmail("newemail@ya.ru"), created);
     }
 }
