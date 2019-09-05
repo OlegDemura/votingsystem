@@ -20,6 +20,10 @@ public class DateTimeUtil {
     private DateTimeUtil() {
     }
 
+    public static LocalDate currentDate(LocalDate localDate) {
+        return localDate != null ? localDate : LocalDate.now();
+    }
+
     public static LocalDateTime adjustStartDateTime(LocalDate localDate) {
         return adjustDateTime(localDate, MIN_DATE, LocalTime.MIN);
     }
