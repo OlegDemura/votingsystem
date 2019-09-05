@@ -6,7 +6,7 @@ import ru.votingsystem.model.Vote;
 import ru.votingsystem.repository.datajpa.CrudVoteRepository;
 import ru.votingsystem.repository.datajpa.DataJpaRestaurantRepository;
 import ru.votingsystem.repository.datajpa.DataJpaUserRepository;
-import ru.votingsystem.util.exception.VoteRepeatException;
+import ru.votingsystem.util.exception.VoteException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -35,7 +35,7 @@ public class VoteService {
         Optional<Vote> votes = voteRepository.findByUserIdAndDateVoting(userId, currentDate());
         return voteRepository.save(votes.map(v -> {
             if (time.isAfter(DEFAULT_EXPIRED_TIME)) {
-                throw new VoteRepeatException("today the voting time has expired");
+                throw new VoteException("today the voting time has expired");
             }
             v.setRestaurant(restaurantRepository.get(restaurantId));
             return v;
@@ -43,6 +43,9 @@ public class VoteService {
     }
 
     public void deleteVoteByUserIdAndDateVoting(Integer userId, LocalDate date) {
+        if (LocalTime.now().isAfter(DEFAULT_EXPIRED_TIME)){
+            throw new VoteException("today the vote cannot delete");
+        }
         checkNotFoundWithId(voteRepository.deleteVoteByUserIdAndDateVoting(userId, date), userId);
     }
 
