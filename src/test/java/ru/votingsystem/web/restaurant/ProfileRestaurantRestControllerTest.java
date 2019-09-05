@@ -2,6 +2,7 @@ package ru.votingsystem.web.restaurant;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.votingsystem.model.Restaurant;
 import ru.votingsystem.web.AbstractControllerTest;
 
@@ -18,18 +19,24 @@ class ProfileRestaurantRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = ProfileRestaurantRestController.REST_URL + "/";
 
     @Test
-    void testGetAll() throws Exception{
+    void testGetAll() throws Exception {
         mockMvc.perform(get(REST_URL).with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    void testGet() throws Exception{
+    void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + RESTAURANT1_ID)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(result -> assertMatch(readFromJsonMvcResult(result, Restaurant.class), RESTAURANT1));
+    }
+
+    @Test
+    void getUnauth() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT2_ID))
+                .andExpect(status().isUnauthorized());
     }
 }

@@ -3,7 +3,7 @@ package ru.votingsystem.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.votingsystem.model.Vote;
-import ru.votingsystem.util.exception.VoteRepeatException;
+import ru.votingsystem.util.exception.VoteException;
 
 
 import java.time.LocalDate;
@@ -38,7 +38,7 @@ class VoteServiceTest extends AbstractServiceTest {
     @Test
     void voteRepeatImpossible() {
         service.vote(USER_ID, RESTAURANT1_ID, LocalTime.of(9, 0));
-        assertThrows(VoteRepeatException.class, () -> service.vote(USER_ID, RESTAURANT2_ID, LocalTime.of(12, 0)));
+        assertThrows(VoteException.class, () -> service.vote(USER_ID, RESTAURANT2_ID, LocalTime.of(12, 0)));
     }
 
     @Test

@@ -79,7 +79,7 @@ public class MealServiceTest extends AbstractServiceTest {
 
     @Test
     public void updateNotFound() {
-        NotFoundException e = assertThrows(NotFoundException.class, ()-> service.update(MEAL1, RESTAURANT1_ID));
+        NotFoundException e = assertThrows(NotFoundException.class, () -> service.update(MEAL1, RESTAURANT1_ID));
         assertEquals(e.getMessage(), "Not found entity with id=" + MEAL1_ID);
     }
 

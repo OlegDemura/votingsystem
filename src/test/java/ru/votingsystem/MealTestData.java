@@ -11,6 +11,7 @@ import static ru.votingsystem.model.AbstractBaseEntity.START_SEQ;
 
 public class MealTestData {
     public static final int MEAL1_ID = START_SEQ + 4;
+    public static final int MEAL_NOT_EXIST = 1;
 
     public static final Meal MEAL1 = new Meal(MEAL1_ID, "Макароны", 500, LocalDate.of(2015, 5, 30));
     public static final Meal MEAL2 = new Meal(MEAL1_ID + 1, "Шашлык", 1000, LocalDate.of(2015, 5, 30));
@@ -21,7 +22,7 @@ public class MealTestData {
 
     public static final List<Meal> MEALS = List.of(MEAL1, MEAL3, MEAL2);
 
-    public static Meal getCreate(){
+    public static Meal getCreate() {
         return new Meal(null, "Созданное название", 1234, LocalDate.of(2015, 5, 31));
     }
 

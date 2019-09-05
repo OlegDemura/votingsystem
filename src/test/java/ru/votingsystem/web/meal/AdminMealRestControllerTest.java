@@ -1,11 +1,10 @@
 package ru.votingsystem.web.meal;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.votingsystem.model.Meal;
-import ru.votingsystem.service.MealService;
 import ru.votingsystem.web.AbstractControllerTest;
 import ru.votingsystem.web.json.JsonUtil;
 
@@ -44,6 +43,19 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void getNotFound() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT2_ID + "/" + MEAL_NOT_EXIST)
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
+    void getUnauth() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     void testDelete() throws Exception {
         mockMvc.perform(delete(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
                 .with(userHttpBasic(ADMIN)))
@@ -57,6 +69,14 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(delete(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    void deleteNotFound() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + RESTAURANT2_ID + "/" + MEAL_NOT_EXIST)
+                .with(userHttpBasic(ADMIN)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

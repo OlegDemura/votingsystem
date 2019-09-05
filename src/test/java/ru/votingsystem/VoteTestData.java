@@ -14,6 +14,7 @@ import static ru.votingsystem.model.AbstractBaseEntity.START_SEQ;
 
 public class VoteTestData {
     public static final int VOTE1_ID = START_SEQ + 10;
+    public static final int VOTE_NOT_FOUND = 1;
 
     public static final Vote VOTE1 = new Vote(VOTE1_ID, LocalDate.of(2019, 7, 6), USER, RESTAURANT2);
     public static final Vote VOTE2 = new Vote(VOTE1_ID+11, LocalDate.of(2019, 7, 6), ADMIN, RESTAURANT1);
