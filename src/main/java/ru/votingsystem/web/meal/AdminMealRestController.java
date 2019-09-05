@@ -7,6 +7,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.votingsystem.model.Meal;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -15,14 +16,20 @@ import static ru.votingsystem.util.ValidationUtil.checkNew;
 
 @RestController
 @RequestMapping(value = AdminMealRestController.REST_URL, produces = APPLICATION_JSON_VALUE)
-public class AdminMealRestController extends AbstractMealRestController{
+public class AdminMealRestController extends AbstractMealRestController {
 
     static final String REST_URL = "/rest/admin/meals";
 
-    @Override
+    /*@Override
     @GetMapping("/{restaurantId}")
     public List<Meal> getAll(@PathVariable int restaurantId) {
         return super.getAll(restaurantId);
+    }*/
+
+    @Override
+    @GetMapping("/{restaurantId}")
+    public List<Meal> getAllOnDate(@PathVariable int restaurantId, @RequestParam(required = false) LocalDate date) {
+        return super.getAllOnDate(restaurantId, date);
     }
 
     @Override

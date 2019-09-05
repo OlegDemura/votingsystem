@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import ru.votingsystem.model.Meal;
 import ru.votingsystem.service.MealService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
@@ -13,7 +14,7 @@ import static ru.votingsystem.util.ValidationUtil.checkNew;
 
 
 public abstract class AbstractMealRestController {
-    protected final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger log = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private MealService service;
@@ -21,6 +22,11 @@ public abstract class AbstractMealRestController {
     public List<Meal> getAll(int restaurantId) {
         log.info("getAll from {}", restaurantId);
         return service.getAll(restaurantId);
+    }
+
+    public List<Meal> getAllOnDate(int restaurantId, LocalDate date) {
+        log.info("getAll from {} on date = {}", restaurantId, date);
+        return service.getAllOnDate(restaurantId, date);
     }
 
     public Meal get(int id, int restaurantId) {
