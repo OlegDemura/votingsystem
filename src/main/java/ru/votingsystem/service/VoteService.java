@@ -42,13 +42,6 @@ public class VoteService {
         }).orElse(new Vote(LocalDate.now(), userRepository.get(userId), restaurantRepository.get(restaurantId))));
     }
 
-    public void deleteVoteByUserIdAndDateVoting(Integer userId, LocalDate date) {
-        if (LocalTime.now().isAfter(DEFAULT_EXPIRED_TIME)){
-            throw new VoteException("today the vote cannot delete");
-        }
-        checkNotFoundWithId(voteRepository.deleteVoteByUserIdAndDateVoting(userId, date), userId);
-    }
-
     public Integer countAllByRestaurantIdAndDateVoting(Integer restaurantId, LocalDate date) {
         return voteRepository.countAllByRestaurantIdAndDateVoting(restaurantId, date);
     }

@@ -30,13 +30,6 @@ public class VoteRestController {
         service.vote(authUserId(), restaurantId, LocalTime.now());
     }
 
-    @DeleteMapping
-    @ResponseStatus(value = HttpStatus.NO_CONTENT)
-    public void deleteVoteByUserIdAndDateVoting(){
-        log.info("voting deleted for current date {}", currentDate());
-        service.deleteVoteByUserIdAndDateVoting(authUserId(), currentDate());
-    }
-
     @GetMapping(value = "/count/{restaurantId}")
     @ResponseStatus(value = HttpStatus.OK)
     public Integer countAllByRestaurantIdAndDateVoting(@PathVariable int restaurantId, @RequestParam LocalDate localDate){

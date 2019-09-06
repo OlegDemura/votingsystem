@@ -33,17 +33,6 @@ class VoteRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void testDeleteVoteByUserIdAndDateVoting() throws Exception {
-        mockMvc.perform(post(REST_URL + RESTAURANT2_ID)
-                .with(userHttpBasic(USER)))
-                .andExpect(status().isOk());
-        mockMvc.perform(delete(REST_URL)
-                .with(userHttpBasic(USER)))
-                .andDo(print())
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
     void testCountAllByRestaurantIdAndDateVoting() throws Exception {
         mockMvc.perform(get(REST_URL + "count/" + RESTAURANT2_ID)
                 .param("localDate", "2019-07-06")

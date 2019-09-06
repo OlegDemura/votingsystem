@@ -12,9 +12,6 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
 
-    @Transactional
-    Integer deleteVoteByUserIdAndDateVoting(Integer userId, LocalDate date);
-
     Integer countAllByRestaurantIdAndDateVoting(Integer restaurantId, LocalDate date);
 
     Integer countAllByRestaurantIdAndDateVotingBetween(Integer restaurantId, LocalDate startDate, LocalDate endDate);

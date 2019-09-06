@@ -42,12 +42,6 @@ class VoteServiceTest extends AbstractServiceTest {
     }
 
     @Test
-    void deleteVoteByUserIdAndDateVoting() {
-        service.vote(USER_ID, RESTAURANT1_ID, LocalTime.now());
-        service.deleteVoteByUserIdAndDateVoting(USER_ID, LocalDate.now());
-    }
-
-    @Test
     void countAllByRestaurantIdAndDateVoting() {
         service.vote(USER_ID, RESTAURANT1_ID, LocalTime.now());
         service.vote(ADMIN_ID, RESTAURANT1_ID, LocalTime.now());
