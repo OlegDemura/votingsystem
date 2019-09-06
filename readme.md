@@ -90,7 +90,7 @@ As a result, provide a link to github repository.
     `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/meals/100002' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 - #### Get the meal with ID 100007 in restaurant with ID 100002
-    `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/meals/100002/100007 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`  
+    `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/meals/100002/100007' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`  
 
 - #### Create new meal for a the restaurant with ID 100002
     `curl -X POST http://localhost:8080/votingsystem/rest/admin/meals/100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"description":"New Meal", "price":"800", "date":"2019-09-05"}'`
