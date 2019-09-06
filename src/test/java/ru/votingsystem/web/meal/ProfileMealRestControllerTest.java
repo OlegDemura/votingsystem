@@ -45,7 +45,7 @@ class ProfileMealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT1_ID + "/" + MEAL1_ID)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isUnprocessableEntity());
     }
