@@ -43,9 +43,6 @@ As a result, provide a link to github repository.
 - #### Vote for the restaurant with ID 100002 on the current date
     `curl -X POST http://localhost:8080/votingsystem/rest/vote/100002 -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
 
-- #### Delete vote on the current date
-    `curl -X Delete http://localhost:8080/votingsystem/rest/vote/ -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
-
 ---
 ## Admin:
 
@@ -109,9 +106,6 @@ As a result, provide a link to github repository.
 
 - #### Vote for the restaurant with ID 100002
     `curl -X POST http://localhost:8080/votingsystem/rest/vote/100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
-
-- #### Delete vote for the restaurant with ID 100002 on current date
-    `curl -X DELETE 'http://localhost:8080/votingsystem/rest/vote' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 - #### Get a vote-counting for the restaurant with ID 100002 on the 2019/07/06
     `curl -X GET 'http://localhost:8080/votingsystem/rest/vote/count/100002?localDate=2019-07-06' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
