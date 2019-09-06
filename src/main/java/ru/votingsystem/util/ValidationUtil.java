@@ -2,8 +2,10 @@ package ru.votingsystem.util;
 
 
 import ru.votingsystem.HasId;
-import ru.votingsystem.model.AbstractBaseEntity;
 import ru.votingsystem.util.exception.NotFoundException;
+
+import javax.validation.*;
+import java.util.Set;
 
 public class ValidationUtil {
 
@@ -41,6 +43,34 @@ public class ValidationUtil {
             bean.setId(id);
         } else if (bean.getId() != id) {
             throw new IllegalArgumentException(bean + " must be with id=" + id);
+        }
+    }
+
+    //  http://stackoverflow.com/a/28565320/548473
+    public static Throwable getRootCause(Throwable t) {
+        Throwable result = t;
+        Throwable cause;
+
+        while (null != (cause = result.getCause()) && (result != cause)) {
+            result = cause;
+        }
+        return result;
+    }
+
+    private static final Validator validator;
+
+    static {
+        //  From Javadoc: implementations are thread-safe and instances are typically cached and reused.
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        //  From Javadoc: implementations of this interface must be thread-safe
+        validator = factory.getValidator();
+    }
+
+    public static <T> void validate(T bean) {
+        // https://alexkosarev.name/2018/07/30/bean-validation-api/
+        Set<ConstraintViolation<T>> violations = validator.validate(bean);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
         }
     }
 }
