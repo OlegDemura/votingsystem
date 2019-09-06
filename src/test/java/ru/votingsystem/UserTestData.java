@@ -3,6 +3,7 @@ package ru.votingsystem;
 import org.springframework.test.web.servlet.ResultMatcher;
 import ru.votingsystem.model.Role;
 import ru.votingsystem.model.User;
+import ru.votingsystem.web.json.JsonUtil;
 
 import java.util.List;
 
@@ -37,5 +38,9 @@ public class UserTestData {
 
     public static ResultMatcher contentJson(User expected) {
         return result -> assertMatch(readFromJsonMvcResult(result, User.class), expected);
+    }
+
+    public static String jsonWithPassword(User user, String passw) {
+        return JsonUtil.writeAdditionProps(user, "password", passw);
     }
 }
