@@ -37,6 +37,9 @@ public class MealService {
 
     @Cacheable("meals")
     public List<Meal> getAllOnDate(int restaurantId, @Nullable LocalDate date) {
+        if (date == null) {
+            return repository.getAll(restaurantId);
+        }
         return repository.getAllOnDate(restaurantId, currentDate(date));
     }
 
