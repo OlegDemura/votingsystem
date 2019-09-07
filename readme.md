@@ -112,3 +112,7 @@ As a result, provide a link to github repository.
 
 - #### Get a vote-counting for a restaurant with ID 100002 from 2019/07/06 to 2019/07/11
     `curl -X GET 'http://localhost:8080/votingsystem/rest/vote/countwithfilter/100002?startDate=2019-07-06&endDate=2019-07-11' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
+
+
+###String for Maven
+    `clean package -DskipTests=true org.codehaus.cargo:cargo-maven2-plugin:1.7.5:run`
