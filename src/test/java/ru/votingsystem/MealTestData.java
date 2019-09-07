@@ -11,7 +11,6 @@ import static ru.votingsystem.model.AbstractBaseEntity.START_SEQ;
 
 public class MealTestData {
     public static final int MEAL1_ID = START_SEQ + 4;
-    public static final int MEAL_NOT_EXIST = 1;
 
     public static final Meal MEAL1 = new Meal(MEAL1_ID, "Макароны", 500, LocalDate.of(2015, 5, 30));
     public static final Meal MEAL2 = new Meal(MEAL1_ID + 1, "Шашлык", 1000, LocalDate.of(2015, 5, 30));
