@@ -23,7 +23,7 @@ public class VoteRestController {
     @Autowired
     private VoteService service;
 
-    @PostMapping(value = "/{restaurantId}")
+    @GetMapping(value = "/{restaurantId}")
     @ResponseStatus(value = HttpStatus.OK)
     public void voting(@PathVariable int restaurantId) {
         log.info("voting for restaurantId {} from userId {}", restaurantId, authUserId());
