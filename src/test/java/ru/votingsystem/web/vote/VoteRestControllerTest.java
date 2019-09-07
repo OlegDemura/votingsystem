@@ -26,7 +26,7 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testVoting() throws Exception {
-        mockMvc.perform(post(REST_URL + RESTAURANT2_ID)
+        mockMvc.perform(get(REST_URL + RESTAURANT2_ID)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk());
         service.countAllByRestaurantIdAndDateVoting(RESTAURANT2_ID, LocalDate.now());
