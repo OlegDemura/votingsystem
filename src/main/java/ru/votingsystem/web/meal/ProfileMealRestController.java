@@ -14,16 +14,9 @@ public class ProfileMealRestController extends AbstractMealRestController {
 
     static final String REST_URL = "/rest/profile/meals";
 
-    /*@Override
     @GetMapping("/{restaurantId}")
-    public List<Meal> getAll(@PathVariable int restaurantId) {
-        return super.getAll(restaurantId);
-    }*/
-
-    @Override
-    @GetMapping("/{restaurantId}")
-    public List<Meal> getAllOnDate(@PathVariable int restaurantId, @RequestParam(required = false) LocalDate date) {
-        return super.getAllOnDate(restaurantId, date);
+    public List<Meal> getAllOnDate(@PathVariable int restaurantId) {
+        return super.getAllOnDate(restaurantId, LocalDate.now());
     }
 
     @Override
