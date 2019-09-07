@@ -7,6 +7,8 @@ import org.springframework.cache.CacheManager;
 import ru.votingsystem.model.Meal;
 import ru.votingsystem.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -90,5 +92,13 @@ public class MealServiceTest extends AbstractServiceTest {
         newMeal.setId(created.getId());
         assertMatch(newMeal, created);
         assertMatch(service.getAll(RESTAURANT2_ID), MEAL1, newMeal, MEAL3, MEAL2);
+    }
+
+    @Test
+    void createWithException() throws Exception {
+        validateRootCause(() -> service.create(new Meal(null, null, 300, LocalDate.now()), RESTAURANT2_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Meal(null, "New Meal", -150, LocalDate.now()), RESTAURANT2_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Meal(null, "New Meal", 1000000, LocalDate.now()), RESTAURANT2_ID), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Meal(null, "New Meal", 500, null), RESTAURANT2_ID), ConstraintViolationException.class);
     }
 }

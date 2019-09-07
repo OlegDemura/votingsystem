@@ -2,6 +2,7 @@ package ru.votingsystem.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import ru.votingsystem.VoteTestData;
 import ru.votingsystem.model.Vote;
 import ru.votingsystem.util.exception.VoteException;
 
@@ -10,11 +11,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static ru.votingsystem.RestaurantTestData.RESTAURANT1_ID;
-import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
-import static ru.votingsystem.UserTestData.ADMIN_ID;
-import static ru.votingsystem.UserTestData.USER_ID;
+import static ru.votingsystem.UserTestData.*;
 import static ru.votingsystem.VoteTestData.*;
+import static ru.votingsystem.RestaurantTestData.*;
 
 class VoteServiceTest extends AbstractServiceTest {
 
@@ -23,7 +22,7 @@ class VoteServiceTest extends AbstractServiceTest {
 
     @Test
     void vote() {
-        Vote voteCreate = getCreate();
+        Vote voteCreate = VoteTestData.getCreate();
         Vote newVote = service.vote(USER_ID, RESTAURANT1_ID, LocalTime.now());
         voteCreate.setId(newVote.getId());
         assertMatch(voteCreate, newVote);

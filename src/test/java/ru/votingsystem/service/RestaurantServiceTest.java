@@ -8,6 +8,7 @@ import org.springframework.cache.CacheManager;
 import ru.votingsystem.model.Restaurant;
 import ru.votingsystem.util.exception.NotFoundException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -67,5 +68,11 @@ public class RestaurantServiceTest extends AbstractServiceTest {
         Restaurant restaurantNew = getCreate();
         service.create(restaurantNew);
         assertMatch(service.getAll(), RESTAURANT2, RESTAURANT1, restaurantNew);
+    }
+
+    @Test
+    void createWithException() throws Exception {
+        validateRootCause(() -> service.create(new Restaurant(null, null, "New address")), ConstraintViolationException.class);
+        validateRootCause(() -> service.create(new Restaurant(null, "New Restaurant", null)), ConstraintViolationException.class);
     }
 }
