@@ -72,6 +72,9 @@ As a result, provide a link to github repository.
 - #### Get all restaurants
     `curl -X GET http://localhost:8080/votingsystem/rest/admin/restaurants -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
     
+- #### Get all restaurants
+    `curl -X GET http://localhost:8080/votingsystem/rest/admin/restaurants/filter?dateVoting=2019-07-06 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
+    
 - #### Get restaurant with ID 100002
     `curl -X GET http://localhost:8080/votingsystem/rest/admin/restaurants/100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
@@ -114,5 +117,5 @@ As a result, provide a link to github repository.
     `curl -X GET 'http://localhost:8080/votingsystem/rest/vote/countwithfilter/100002?startDate=2019-07-06&endDate=2019-07-11' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 
-###String for Maven
+###String for Maven run
     `clean package -DskipTests=true org.codehaus.cargo:cargo-maven2-plugin:1.7.5:run`

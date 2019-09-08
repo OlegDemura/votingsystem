@@ -16,7 +16,7 @@ public class Vote extends AbstractBaseEntity {
     @NotNull
     private LocalDate dateVoting;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
