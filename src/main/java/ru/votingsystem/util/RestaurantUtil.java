@@ -15,10 +15,6 @@ public class RestaurantUtil {
         Map<Restaurant, Long> map = votes.stream()
                 .collect(Collectors.groupingBy(Vote::getRestaurant, Collectors.counting()));
 
-        List<RestaurantTo> list = restaurants.stream()
-                .filter(filter)
-                .map(restaurant -> getRestaurantTo(restaurant, map.get(restaurant))).collect(Collectors.toList());
-
         return restaurants.stream()
                 .filter(filter)
                 .map(restaurant -> getRestaurantTo(restaurant, map.get(restaurant))).collect(Collectors.toList());
