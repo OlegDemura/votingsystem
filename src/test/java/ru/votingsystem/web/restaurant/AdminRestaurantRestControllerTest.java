@@ -117,4 +117,19 @@ class AdminRestaurantRestControllerTest extends AbstractControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT1_ID))
                 .andExpect(status().isUnauthorized());
     }
+
+    @Test
+    void getAllWithCountDateVoting() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/filter").with(userHttpBasic(ADMIN)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void getAllWithCountDateVotingWithDate() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + "/filter").with(userHttpBasic(ADMIN))
+                .param("dateVoting","2019-07-06"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
+    }
 }
