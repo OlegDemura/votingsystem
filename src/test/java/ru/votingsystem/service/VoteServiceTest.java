@@ -3,12 +3,14 @@ package ru.votingsystem.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.votingsystem.VoteTestData;
+import ru.votingsystem.model.Restaurant;
 import ru.votingsystem.model.Vote;
 import ru.votingsystem.util.exception.VoteException;
 
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static ru.votingsystem.UserTestData.*;
@@ -54,5 +56,14 @@ class VoteServiceTest extends AbstractServiceTest {
                 LocalDate.of(2019,7,6),
                 LocalDate.of(2019,7,12));
         assertMatch(RESTAURANT1_COUNT, expected);
+    }
+
+    @Test
+    void getAllByDateVoting(){
+        service.vote(USER_ID, RESTAURANT1_ID, LocalTime.now());
+        service.vote(ADMIN_ID, RESTAURANT2_ID, LocalTime.now());
+
+        List<Vote> list = service.getAllByDateVoting(LocalDate.now());
+        assertMatch(list.size(), 2);
     }
 }
