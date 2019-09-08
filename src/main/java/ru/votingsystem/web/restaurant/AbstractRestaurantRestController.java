@@ -12,6 +12,7 @@ import ru.votingsystem.to.RestaurantTo;
 import java.time.LocalDate;
 import java.util.List;
 
+import static ru.votingsystem.util.DateTimeUtil.currentDate;
 import static ru.votingsystem.util.RestaurantUtil.getAllRestaurantsWithCount;
 import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
 import static ru.votingsystem.util.ValidationUtil.checkNew;
@@ -33,7 +34,7 @@ public abstract class AbstractRestaurantRestController {
     public List<RestaurantTo> getAllWithCountDateVoting(LocalDate dateVoting) {
         log.info("get restaurants with count votes on date = {}", dateVoting);
         List<Restaurant> restaurants = getAll();
-        List<Vote> votes = voteService.getAllByDateVoting(dateVoting);
+        List<Vote> votes = voteService.getAllByDateVoting(currentDate(dateVoting));
         return getAllRestaurantsWithCount(restaurants, votes, restaurant->true);
     }
 
