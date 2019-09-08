@@ -6,8 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import ru.votingsystem.model.Restaurant;
+import ru.votingsystem.to.RestaurantTo;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.votingsystem.util.ValidationUtil.assureIdConsistent;
@@ -22,6 +24,11 @@ public class AdminRestaurantRestController extends AbstractRestaurantRestControl
     @GetMapping
     public List<Restaurant> getAll() {
         return super.getAll();
+    }
+
+    @GetMapping("/filter")
+    public List<RestaurantTo> getAllWithCountDateVoting(@RequestParam(required = false) LocalDate dateVoting) {
+        return super.getAllWithCountDateVoting(dateVoting);
     }
 
     @GetMapping("/{id}")
