@@ -10,6 +10,7 @@ import ru.votingsystem.util.exception.VoteException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Optional;
 
 import static ru.votingsystem.util.DateTimeUtil.DEFAULT_EXPIRED_TIME;
@@ -29,6 +30,10 @@ public class VoteService {
         this.voteRepository = voteRepository;
         this.restaurantRepository = restaurantRepository;
         this.userRepository = userRepository;
+    }
+
+    public List<Vote> getAllByDateVoting(LocalDate dateVoting){
+        return voteRepository.getAllByDateVoting(dateVoting);
     }
 
     public Vote vote(Integer userId, Integer restaurantId, LocalTime time) {
