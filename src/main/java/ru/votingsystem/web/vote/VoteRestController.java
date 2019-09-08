@@ -10,7 +10,6 @@ import ru.votingsystem.service.VoteService;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import static ru.votingsystem.util.DateTimeUtil.*;
 import static ru.votingsystem.web.SecurityUtil.authUserId;
 
 @RestController

@@ -8,14 +8,11 @@ import ru.votingsystem.web.AbstractControllerTest;
 import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static ru.votingsystem.RestaurantTestData.RESTAURANT1_ID;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT2_ID;
 import static ru.votingsystem.TestUtil.userHttpBasic;
 import static ru.votingsystem.UserTestData.USER;
-import static ru.votingsystem.web.SecurityUtil.authUserId;
 
 
 class VoteRestControllerTest extends AbstractControllerTest {

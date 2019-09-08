@@ -3,7 +3,6 @@ package ru.votingsystem.service;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import ru.votingsystem.VoteTestData;
-import ru.votingsystem.model.Restaurant;
 import ru.votingsystem.model.Vote;
 import ru.votingsystem.util.exception.VoteException;
 

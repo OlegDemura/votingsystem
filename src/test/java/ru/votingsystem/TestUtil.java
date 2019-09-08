@@ -10,8 +10,6 @@ import ru.votingsystem.web.json.JsonUtil;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class TestUtil {
     public static String getContent(MvcResult result) throws UnsupportedEncodingException {
         return result.getResponse().getContentAsString();

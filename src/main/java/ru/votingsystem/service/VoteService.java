@@ -15,7 +15,6 @@ import java.util.Optional;
 
 import static ru.votingsystem.util.DateTimeUtil.DEFAULT_EXPIRED_TIME;
 import static ru.votingsystem.util.DateTimeUtil.currentDate;
-import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class VoteService {
