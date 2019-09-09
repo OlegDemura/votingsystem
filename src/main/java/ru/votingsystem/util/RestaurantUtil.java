@@ -21,12 +21,9 @@ public class RestaurantUtil {
     }
 
     private static RestaurantTo getRestaurantTo(Restaurant restaurant, Long amount) {
-        if (amount==null){
-            amount = 0L;
-        }
         return new RestaurantTo(restaurant.getId(),
                 restaurant.getName(),
                 restaurant.getAddress(),
-                Math.toIntExact(amount));
+                Math.toIntExact(Objects.requireNonNullElse(amount,0L)));
     }
 }
