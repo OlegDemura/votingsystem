@@ -27,7 +27,8 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testGetAll() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT1_ID)
+        mockMvc.perform(get(REST_URL)
+                .param("restaurantId", String.valueOf(RESTAURANT1_ID))
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON));
@@ -35,7 +36,8 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testGet() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+        mockMvc.perform(get(REST_URL + MEAL1_ID)
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -44,7 +46,8 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT2_ID + "/" + 1)
+        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL + 1)
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isUnprocessableEntity());
     }
@@ -57,7 +60,8 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testDelete() throws Exception {
-        mockMvc.perform(delete(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+        mockMvc.perform(delete(REST_URL + MEAL1_ID)
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
@@ -73,7 +77,8 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void deleteNotFound() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + RESTAURANT2_ID + "/" + 1)
+        mockMvc.perform(MockMvcRequestBuilders.delete(REST_URL + 1)
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .with(userHttpBasic(ADMIN)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
@@ -83,7 +88,8 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
     void testUpdate() throws Exception {
         Meal update = new Meal(MEAL1.getId(), MEAL1.getDescription(), MEAL1.getPrice(), MEAL1.getDate());
         update.setDescription("UpdateDescription");
-        mockMvc.perform(put(REST_URL + RESTAURANT2_ID + "/" + MEAL1_ID)
+        mockMvc.perform(put(REST_URL + MEAL1_ID)
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(update)))
@@ -102,7 +108,8 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
     @Test
     void testCreate() throws Exception {
         Meal expected = new Meal("New Meal", 750, LocalDate.now());
-        ResultActions action = mockMvc.perform(post(REST_URL + RESTAURANT2_ID)
+        ResultActions action = mockMvc.perform(post(REST_URL)
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .with(userHttpBasic(ADMIN))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(expected)))
