@@ -23,7 +23,8 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testVoting() throws Exception {
-        mockMvc.perform(get(REST_URL + RESTAURANT2_ID)
+        mockMvc.perform(get(REST_URL)
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk());
         service.countAllByRestaurantIdAndDateVoting(RESTAURANT2_ID, LocalDate.now());
@@ -31,7 +32,8 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testCountAllByRestaurantIdAndDateVoting() throws Exception {
-        mockMvc.perform(get(REST_URL + "count/" + RESTAURANT2_ID)
+        mockMvc.perform(get(REST_URL + "count")
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .param("localDate", "2019-07-06")
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
@@ -40,7 +42,8 @@ class VoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void testCountAllByRestaurantIdAndDateVotingBetween() throws Exception {
-        mockMvc.perform(get(REST_URL + "countwithfilter/" + RESTAURANT2_ID)
+        mockMvc.perform(get(REST_URL + "countwithfilter")
+                .param("restaurantId", String.valueOf(RESTAURANT2_ID))
                 .param("startDate", "2019-07-06")
                 .param("endDate", "2019-07-08")
                 .with(userHttpBasic(USER)))

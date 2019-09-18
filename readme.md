@@ -38,7 +38,7 @@ As a result, provide a link to github repository.
     `curl -X GET http://localhost:8080/votingsystem/rest/profile/restaurants/100002 -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
     
 - #### Get all meals for restaurant with ID 100002
-    `curl -X GET http://localhost:8080/votingsystem/rest/profile/meals/100002 -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
+    `curl -X GET http://localhost:8080/votingsystem/rest/profile/meals?restaurantId=100002 -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
 
 - #### Vote for the restaurant with ID 100002 on the current date
     `curl -X GET http://localhost:8080/votingsystem/rest/vote/100002 -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
@@ -90,31 +90,31 @@ As a result, provide a link to github repository.
 ### OPERATIONS on meals
 
 - #### Get the all meals in restaurant with ID 100002
-    `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/meals/100002' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
+    `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/meals?restaurantId=100002' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 - #### Get the meal with ID 100007 in restaurant with ID 100002
-    `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/meals/100002/100007' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`  
+    `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/meals/100007?restaurantId=100002' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`  
 
 - #### Create new meal for a the restaurant with ID 100002
-    `curl -X POST http://localhost:8080/votingsystem/rest/admin/meals/100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"description":"New Meal", "price":"800", "date":"2019-09-05"}'`
+    `curl -X POST http://localhost:8080/votingsystem/rest/admin/meals?restaurantId=100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"description":"New Meal", "price":"800", "date":"2019-09-05"}'`
 
 - #### Update meal with ID 100007
-    `curl -X PUT http://localhost:8080/votingsystem/rest/admin/meals/100002/100007 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"description":"New Meal", "price":"800", "date":"2019-08-05"}'`
+    `curl -X PUT http://localhost:8080/votingsystem/rest/admin/meals/100007?restaurantId=100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu' -H 'Content-Type: application/json' -d '{"description":"New Meal", "price":"800", "date":"2019-08-05"}'`
 
 - #### Delete meal with ID 100007
-    `curl -X DELETE http://localhost:8080/votingsystem/rest/admin/meals/100002/100007 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
+    `curl -X DELETE http://localhost:8080/votingsystem/rest/admin/meals/100007?restaurantId=100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 
 ###Operations with votes###
 
 - #### Vote for the restaurant with ID 100002
-    `curl -X POST http://localhost:8080/votingsystem/rest/vote/100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
+    `curl -X GET http://localhost:8080/votingsystem/rest/vote?restaurantId=100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 - #### Get a vote-counting for the restaurant with ID 100002 on the 2019/07/06
-    `curl -X GET 'http://localhost:8080/votingsystem/rest/vote/count/100002?localDate=2019-07-06' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
+    `curl -X GET 'http://localhost:8080/votingsystem/rest/vote/count?restaurantId=100002&localDate=2019-07-06' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 - #### Get a vote-counting for a restaurant with ID 100002 from 2019/07/06 to 2019/07/11
-    `curl -X GET 'http://localhost:8080/votingsystem/rest/vote/countwithfilter/100002?startDate=2019-07-06&endDate=2019-07-11' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
+    `curl -X GET 'http://localhost:8080/votingsystem/rest/vote/countwithfilter?restaurantId=100002&startDate=2019-07-06&endDate=2019-07-11' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 
 ###String for Maven run

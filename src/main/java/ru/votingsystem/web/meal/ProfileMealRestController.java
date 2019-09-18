@@ -14,8 +14,8 @@ public class ProfileMealRestController extends AbstractMealRestController {
 
     static final String REST_URL = "/rest/profile/meals";
 
-    @GetMapping("/{restaurantId}")
-    public List<Meal> getAllOnDate(@PathVariable int restaurantId) {
+    @GetMapping
+    public List<Meal> getAllOnDate(@RequestParam int restaurantId) {
         return super.getAllOnDate(restaurantId, LocalDate.now());
     }
 }

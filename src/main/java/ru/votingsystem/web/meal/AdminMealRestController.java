@@ -21,45 +21,45 @@ public class AdminMealRestController extends AbstractMealRestController {
     static final String REST_URL = "/rest/admin/meals";
 
     @Override
-    @GetMapping("/{restaurantId}")
-    public List<Meal> getAll(@PathVariable int restaurantId) {
+    @GetMapping
+    public List<Meal> getAll(@RequestParam int restaurantId) {
         return super.getAll(restaurantId);
     }
 
     @Override
-    @GetMapping("/{restaurantId}/filter")
-    public List<Meal> getAllOnDate(@PathVariable int restaurantId, @RequestParam(required = false) LocalDate date) {
+    @GetMapping("/filter")
+    public List<Meal> getAllOnDate(@RequestParam int restaurantId, @RequestParam(required = false) LocalDate date) {
         return super.getAllOnDate(restaurantId, date);
     }
 
     @Override
-    @GetMapping("/{restaurantId}/{id}")
-    public Meal get(@PathVariable int id, @PathVariable int restaurantId) {
+    @GetMapping("/{id}")
+    public Meal get(@PathVariable int id, @RequestParam int restaurantId) {
         return super.get(id, restaurantId);
     }
 
     @Override
-    @DeleteMapping("/{restaurantId}/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable int id, @PathVariable int restaurantId) {
+    public void delete(@PathVariable int id, @RequestParam int restaurantId) {
         super.delete(id, restaurantId);
     }
 
     @Override
-    @PutMapping(value = "/{restaurantId}/{id}", consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Meal meal, @PathVariable int restaurantId, @PathVariable int id) {
+    public void update(@RequestBody Meal meal, @RequestParam int restaurantId, @PathVariable int id) {
         assureIdConsistent(meal, id);
         super.update(meal, restaurantId, id);
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE, value = "/{restaurantId}")
-    public ResponseEntity<Meal> createWithLocation(@RequestBody Meal meal, @PathVariable int restaurantId) {
+    @PostMapping(consumes = APPLICATION_JSON_VALUE)
+    public ResponseEntity<Meal> createWithLocation(@RequestBody Meal meal, @RequestParam int restaurantId) {
         checkNew(meal);
         Meal created = super.create(meal, restaurantId);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL + "/{restaurantId}")
+                .path(REST_URL)
                 .buildAndExpand(created.getId()).toUri();
         return ResponseEntity.created(uriOfNewResource).body(created);
     }

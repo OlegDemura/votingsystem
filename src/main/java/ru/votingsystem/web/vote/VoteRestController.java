@@ -22,23 +22,23 @@ public class VoteRestController {
     @Autowired
     private VoteService service;
 
-    @GetMapping(value = "/{restaurantId}")
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
-    public void voting(@PathVariable int restaurantId) {
+    public void voting(@RequestParam int restaurantId) {
         log.info("voting for restaurantId {} from userId {}", restaurantId, authUserId());
         service.vote(authUserId(), restaurantId, LocalTime.now());
     }
 
-    @GetMapping(value = "/count/{restaurantId}")
+    @GetMapping(value = "/count")
     @ResponseStatus(value = HttpStatus.OK)
-    public Integer countAllByRestaurantIdAndDateVoting(@PathVariable int restaurantId, @RequestParam LocalDate localDate){
+    public Integer countAllByRestaurantIdAndDateVoting(@RequestParam int restaurantId, @RequestParam LocalDate localDate){
         log.info("count for restaurant {} for date {}", restaurantId, localDate);
         return service.countAllByRestaurantIdAndDateVoting(restaurantId, localDate);
     }
 
-    @GetMapping(value = "/countwithfilter/{restaurantId}")
+    @GetMapping(value = "/countwithfilter")
     @ResponseStatus(value = HttpStatus.OK)
-    public Integer countAllByRestaurantIdAndDateVotingBetween(@PathVariable int restaurantId,
+    public Integer countAllByRestaurantIdAndDateVotingBetween(@RequestParam int restaurantId,
                                                            @RequestParam(required = false) LocalDate startDate,
                                                            @RequestParam(required = false) LocalDate endDate){
         log.info("count for restaurant {} between dates {} and {}", restaurantId, startDate, endDate);
