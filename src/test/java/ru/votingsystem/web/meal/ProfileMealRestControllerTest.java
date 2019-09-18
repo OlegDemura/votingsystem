@@ -27,7 +27,7 @@ class ProfileMealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getUnauth() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get(REST_URL)
+        mockMvc.perform(get(REST_URL)
                 .param("restaurantId", String.valueOf(RESTAURANT1_ID)))
                 .andExpect(status().isUnauthorized());
     }
