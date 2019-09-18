@@ -3,7 +3,6 @@ package ru.votingsystem.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import ru.votingsystem.model.Restaurant;
 
 import java.time.LocalDate;
@@ -20,7 +19,6 @@ public class DataJpaRestaurantRepository {
         return crudRestaurantRepository.delete(restaurantId) != 0;
     }
 
-    @Transactional
     public Restaurant save(Restaurant restaurant) {
         return crudRestaurantRepository.save(restaurant);
     }
