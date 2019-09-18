@@ -18,10 +18,4 @@ public class ProfileMealRestController extends AbstractMealRestController {
     public List<Meal> getAllOnDate(@PathVariable int restaurantId) {
         return super.getAllOnDate(restaurantId, LocalDate.now());
     }
-
-    @Override
-    @GetMapping("/{restaurantId}/{id}")
-    public Meal get(@PathVariable int id, @PathVariable int restaurantId) {
-        return super.get(id, restaurantId);
-    }
 }
