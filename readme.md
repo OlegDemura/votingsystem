@@ -31,7 +31,7 @@ As a result, provide a link to github repository.
 ---
 ## User:
 
-- #### Get all restaurants
+- #### Get all restaurants on current date
     `curl -X GET http://localhost:8080/votingsystem/rest/profile/restaurants -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
 
 - #### Get restaurant with ID 100002

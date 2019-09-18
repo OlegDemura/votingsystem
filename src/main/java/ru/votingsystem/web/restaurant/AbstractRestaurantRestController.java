@@ -31,6 +31,10 @@ public abstract class AbstractRestaurantRestController {
         return service.getAll();
     }
 
+    public List<Restaurant> getAllOnDate(){
+        return service.getAllOnDate(currentDate());
+    }
+
     public List<RestaurantTo> getAllWithCountDateVoting(LocalDate dateVoting) {
         log.info("get restaurants with count votes on date = {}", dateVoting);
         List<Restaurant> restaurants = getAll();

@@ -9,6 +9,7 @@ import ru.votingsystem.model.Restaurant;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import javax.validation.ConstraintViolationException;
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -31,6 +32,12 @@ public class RestaurantServiceTest extends AbstractServiceTest {
     public void getAll() {
         List<Restaurant> all = service.getAll();
         assertMatch(all, RESTAURANT2, RESTAURANT1);
+    }
+
+    @Test
+    public void getAllOnDate() {
+        List<Restaurant> all = service.getAllOnDate(LocalDate.now());
+        assertMatch(all, RESTAURANT1);
     }
 
     @Test

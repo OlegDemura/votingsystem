@@ -9,6 +9,7 @@ import ru.votingsystem.model.Restaurant;
 import ru.votingsystem.repository.DataJpaRestaurantRepository;
 import ru.votingsystem.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
@@ -25,6 +26,11 @@ public class RestaurantService {
     @Cacheable("restaurants")
     public List<Restaurant> getAll() {
         return repository.getAll();
+    }
+
+    @Cacheable("restaurants")
+    public List<Restaurant> getAllOnDate(LocalDate localDate){
+        return repository.getAllOnDate(localDate);
     }
 
     public Restaurant get(int id) throws NotFoundException {

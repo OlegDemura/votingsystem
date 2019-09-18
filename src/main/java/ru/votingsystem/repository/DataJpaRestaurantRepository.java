@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.votingsystem.model.Restaurant;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -30,5 +31,9 @@ public class DataJpaRestaurantRepository {
 
     public List<Restaurant> getAll() {
         return crudRestaurantRepository.findAll(SORT_NAME);
+    }
+
+    public List<Restaurant> getAllOnDate(LocalDate localDate) {
+        return crudRestaurantRepository.getAllOnDate(localDate);
     }
 }

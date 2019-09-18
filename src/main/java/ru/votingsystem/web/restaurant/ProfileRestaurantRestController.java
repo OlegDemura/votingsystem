@@ -13,12 +13,12 @@ public class ProfileRestaurantRestController extends AbstractRestaurantRestContr
     static final String REST_URL = "/rest/profile/restaurants";
 
     @GetMapping
-    public List<Restaurant> getAll() {
-        return service.getAll();
+    public List<Restaurant> getAllOnDate() {
+        return super.getAllOnDate();
     }
 
     @GetMapping("/{id}")
     public Restaurant get(@PathVariable int id) {
-        return service.get(id);
+        return super.get(id);
     }
 }
