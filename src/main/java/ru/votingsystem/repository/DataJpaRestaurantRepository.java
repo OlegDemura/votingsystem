@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 import ru.votingsystem.model.Restaurant;
+import ru.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +25,7 @@ public class DataJpaRestaurantRepository {
     }
 
     public Restaurant get(int restaurantId) {
-        return crudRestaurantRepository.findById(restaurantId).orElse(null);
+        return crudRestaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFoundException("Not found restaurant with id " + restaurantId));
     }
 
     public List<Restaurant> getAll() {
