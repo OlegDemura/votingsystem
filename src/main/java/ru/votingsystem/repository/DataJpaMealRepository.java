@@ -1,4 +1,4 @@
-package ru.votingsystem.repository.datajpa;
+package ru.votingsystem.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

@@ -7,7 +7,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.votingsystem.model.Meal;
-import ru.votingsystem.repository.datajpa.DataJpaMealRepository;
+import ru.votingsystem.repository.DataJpaMealRepository;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;

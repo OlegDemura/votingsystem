@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import ru.votingsystem.AuthorizedUser;
 import ru.votingsystem.model.User;
-import ru.votingsystem.repository.datajpa.DataJpaUserRepository;
+import ru.votingsystem.repository.DataJpaUserRepository;
 import ru.votingsystem.to.UserTo;
 import ru.votingsystem.util.UserUtil;
 import ru.votingsystem.util.exception.NotFoundException;

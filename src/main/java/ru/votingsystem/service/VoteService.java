@@ -3,9 +3,9 @@ package ru.votingsystem.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.votingsystem.model.Vote;
-import ru.votingsystem.repository.datajpa.CrudVoteRepository;
-import ru.votingsystem.repository.datajpa.DataJpaRestaurantRepository;
-import ru.votingsystem.repository.datajpa.DataJpaUserRepository;
+import ru.votingsystem.repository.CrudVoteRepository;
+import ru.votingsystem.repository.DataJpaRestaurantRepository;
+import ru.votingsystem.repository.DataJpaUserRepository;
 import ru.votingsystem.util.exception.VoteException;
 
 import java.time.LocalDate;

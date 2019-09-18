@@ -1,4 +1,4 @@
-package ru.votingsystem.repository.datajpa;
+package ru.votingsystem.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
