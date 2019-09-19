@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ru.votingsystem.model.Meal;
+import ru.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -32,11 +33,19 @@ public class DataJpaMealRepository {
     }
 
     public List<Meal> getAll(int restaurantId) {
-        return crudMealRepository.getAll(restaurantId);
+        List<Meal> meals = crudMealRepository.getAll(restaurantId);
+        if (meals.isEmpty()){
+            throw new NotFoundException("Restaurant with id "+ restaurantId + " not found");
+        }
+        return meals;
     }
 
     public List<Meal> getAllOnDate(int restaurantId, LocalDate date) {
-        return crudMealRepository.getAllOnDate(restaurantId, date);
+        List<Meal> meals = crudMealRepository.getAllOnDate(restaurantId, date);
+        if (meals.isEmpty()){
+            throw new NotFoundException("Restaurant with id "+ restaurantId + " not found");
+        }
+        return meals;
     }
 
     public boolean delete(int id, int restaurantId) {
