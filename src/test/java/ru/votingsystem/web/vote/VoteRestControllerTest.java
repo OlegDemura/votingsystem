@@ -1,10 +1,8 @@
 package ru.votingsystem.web.vote;
 
 import org.junit.jupiter.api.Test;
-import ru.votingsystem.model.Meal;
 import ru.votingsystem.web.AbstractControllerTest;
 
-import java.time.LocalDate;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
