@@ -41,7 +41,7 @@ As a result, provide a link to github repository.
     `curl -X GET http://localhost:8080/votingsystem/rest/profile/meals?restaurantId=100002 -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
 
 - #### Vote for the restaurant with ID 100002 on the current date
-    `curl -X GET http://localhost:8080/votingsystem/rest/vote/100002 -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
+    `curl -X GET http://localhost:8080/votingsystem/rest/vote?restaurantId=100002 -H 'Authorization: Basic dXNlckB5YW5kZXgucnU6cGFzc3dvcmQ='`
 
 ---
 ## Admin:
