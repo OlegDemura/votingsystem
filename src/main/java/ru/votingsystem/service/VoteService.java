@@ -6,11 +6,13 @@ import ru.votingsystem.model.Vote;
 import ru.votingsystem.repository.CrudVoteRepository;
 import ru.votingsystem.repository.DataJpaRestaurantRepository;
 import ru.votingsystem.repository.DataJpaUserRepository;
+import ru.votingsystem.util.exception.NotFoundException;
 import ru.votingsystem.util.exception.VoteException;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static ru.votingsystem.util.DateTimeUtil.DEFAULT_EXPIRED_TIME;
@@ -31,12 +33,16 @@ public class VoteService {
         this.userRepository = userRepository;
     }
 
-    public List<Vote> getAllByDateVoting(LocalDate dateVoting){
+    public List<Vote> getAllByDateVoting(LocalDate dateVoting) {
         return voteRepository.getAllByDateVoting(dateVoting);
     }
 
     public Vote vote(Integer userId, Integer restaurantId, LocalTime time) {
         Optional<Vote> votes = voteRepository.findByUserIdAndDateVoting(userId, currentDate());
+        if (restaurantRepository.getAllOnDate(currentDate()).stream()
+                .noneMatch(restaurant -> Objects.equals(restaurant.getId(), restaurantId))) {
+            throw new NotFoundException("Restaurant don't have meal today");
+        }
         return voteRepository.save(votes.map(v -> {
             if (time.isAfter(DEFAULT_EXPIRED_TIME)) {
                 throw new VoteException("today the voting time has expired");
