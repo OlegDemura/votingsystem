@@ -32,15 +32,15 @@ public class MealService {
 
     @Cacheable("meals")
     public List<Meal> getAll(int restaurantId) {
-        return repository.getAll(restaurantId);
+        return checkNotFoundWithId(repository.getAll(restaurantId), restaurantId);
     }
 
     @Cacheable("meals")
     public List<Meal> getAllOnDate(int restaurantId, @Nullable LocalDate date) {
         if (date == null) {
-            return repository.getAll(restaurantId);
+            return checkNotFoundWithId(repository.getAll(restaurantId), restaurantId);
         }
-        return repository.getAllOnDate(restaurantId, currentDate(date));
+        return checkNotFoundWithId(repository.getAllOnDate(restaurantId, currentDate(date)), restaurantId);
     }
 
     @CacheEvict(value = "meals", allEntries = true)
