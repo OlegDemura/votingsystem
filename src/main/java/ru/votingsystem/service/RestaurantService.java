@@ -23,7 +23,6 @@ public class RestaurantService {
         this.repository = repository;
     }
 
-    @Cacheable("restaurants")
     public List<Restaurant> getAll() {
         return repository.getAll();
     }

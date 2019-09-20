@@ -32,6 +32,7 @@ public abstract class AbstractRestaurantRestController {
     }
 
     public List<Restaurant> getAllOnDate(){
+        log.info("getAll on date = {}", currentDate());
         return service.getAllOnDate(currentDate());
     }
 

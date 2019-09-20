@@ -30,16 +30,12 @@ public class MealService {
         return checkNotFoundWithId(repository.get(id, restaurantId), id);
     }
 
-    @Cacheable("meals")
     public List<Meal> getAll(int restaurantId) {
         return checkNotFoundWithId(repository.getAll(restaurantId), restaurantId);
     }
 
     @Cacheable("meals")
     public List<Meal> getAllOnDate(int restaurantId, @Nullable LocalDate date) {
-        if (date == null) {
-            return checkNotFoundWithId(repository.getAll(restaurantId), restaurantId);
-        }
         return checkNotFoundWithId(repository.getAllOnDate(restaurantId, currentDate(date)), restaurantId);
     }
 
