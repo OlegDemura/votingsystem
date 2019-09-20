@@ -7,18 +7,18 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static ru.votingsystem.RestaurantTestData.RESTAURANT1;
-import static ru.votingsystem.UserTestData.ADMIN;
+import static ru.votingsystem.UserTestData.USER;
 
 public class VoteTestData {
 
     public static final Integer RESTAURANT1_COUNT = 4;
 
     public static Vote getCreate() {
-        return new Vote(null, LocalDate.now(), ADMIN, RESTAURANT1);
+        return new Vote(null, LocalDate.now(), USER, RESTAURANT1);
     }
 
     public static void assertMatch(Vote actual, Vote expected) {
-        assertThat(actual).isEqualToIgnoringGivenFields(expected, "restaurant", "user");
+        assertThat(actual).isEqualToIgnoringGivenFields(expected);
     }
 
     public static void assertMatch(Iterable<Vote> actual, Vote... expected) {
