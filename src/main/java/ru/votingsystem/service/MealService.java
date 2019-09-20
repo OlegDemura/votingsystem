@@ -7,7 +7,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ru.votingsystem.model.Meal;
-import ru.votingsystem.repository.DataJpaMealRepository;
+import ru.votingsystem.repository.CrudMealRepository;
+import ru.votingsystem.repository.CrudRestaurantRepository;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import java.time.LocalDate;
@@ -19,15 +20,18 @@ import static ru.votingsystem.util.ValidationUtil.checkNotFoundWithId;
 @Service
 public class MealService {
 
-    private final DataJpaMealRepository repository;
+    private final CrudMealRepository repository;
+
+    private final CrudRestaurantRepository restaurantRepository;
 
     @Autowired
-    public MealService(DataJpaMealRepository repository) {
+    public MealService(CrudMealRepository repository, CrudRestaurantRepository restaurantRepository) {
         this.repository = repository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     public Meal get(int id, int restaurantId) throws NotFoundException {
-        return checkNotFoundWithId(repository.get(id, restaurantId), id);
+        return checkNotFoundWithId(repository.getOneMeal(id, restaurantId), id);
     }
 
     public List<Meal> getAll(int restaurantId) {
@@ -41,19 +45,21 @@ public class MealService {
 
     @CacheEvict(value = "meals", allEntries = true)
     public void delete(int id, int restaurantId) throws NotFoundException {
-        checkNotFoundWithId(repository.delete(id, restaurantId), id);
+        checkNotFoundWithId(repository.delete(id, restaurantId) != 0, id);
     }
 
     @CacheEvict(value = "meals", allEntries = true)
     public void update(Meal meal, int restaurantId) {
         Assert.notNull(meal, "meal must not be null");
-        checkNotFoundWithId(repository.save(meal, restaurantId), meal.getId());
+        meal.setRestaurant(get(meal.id(), restaurantId).getRestaurant());
+        repository.save(meal);
     }
 
     @CacheEvict(value = "meals", allEntries = true)
     public Meal create(Meal meal, int restaurantId) {
         Assert.notNull(meal, "meal must not be null");
-        return repository.save(meal, restaurantId);
+        meal.setRestaurant(restaurantRepository.getOne(restaurantId));
+        return repository.save(meal);
     }
 }
 

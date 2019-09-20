@@ -3,9 +3,9 @@ package ru.votingsystem.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.votingsystem.model.Vote;
+import ru.votingsystem.repository.CrudRestaurantRepository;
+import ru.votingsystem.repository.CrudUserRepository;
 import ru.votingsystem.repository.CrudVoteRepository;
-import ru.votingsystem.repository.DataJpaRestaurantRepository;
-import ru.votingsystem.repository.DataJpaUserRepository;
 import ru.votingsystem.util.exception.NotFoundException;
 import ru.votingsystem.util.exception.VoteException;
 
@@ -21,13 +21,13 @@ import static ru.votingsystem.util.DateTimeUtil.currentDate;
 @Service
 public class VoteService {
     private final CrudVoteRepository voteRepository;
-    private final DataJpaUserRepository userRepository;
-    private final DataJpaRestaurantRepository restaurantRepository;
+    private final CrudUserRepository userRepository;
+    private final CrudRestaurantRepository restaurantRepository;
 
     @Autowired
     public VoteService(CrudVoteRepository voteRepository,
-                       DataJpaRestaurantRepository restaurantRepository,
-                       DataJpaUserRepository userRepository) {
+                       CrudRestaurantRepository restaurantRepository,
+                       CrudUserRepository userRepository) {
         this.voteRepository = voteRepository;
         this.restaurantRepository = restaurantRepository;
         this.userRepository = userRepository;
@@ -47,9 +47,10 @@ public class VoteService {
             if (time.isAfter(DEFAULT_EXPIRED_TIME)) {
                 throw new VoteException("today the voting time has expired");
             }
-            v.setRestaurant(restaurantRepository.get(restaurantId));
+            v.setRestaurant(restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFoundException("Not found restaurant with id " + restaurantId)));
             return v;
-        }).orElse(new Vote(LocalDate.now(), userRepository.get(userId), restaurantRepository.get(restaurantId))));
+        }).orElse(new Vote(LocalDate.now(), userRepository.findById(userId).orElse(null),
+                restaurantRepository.findById(restaurantId).orElseThrow(() -> new NotFoundException("Not found restaurant with id " + restaurantId)))));
     }
 
     public Integer countAllByRestaurantIdAndDateVoting(Integer restaurantId, LocalDate date) {
