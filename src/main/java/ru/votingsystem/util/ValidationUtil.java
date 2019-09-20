@@ -5,6 +5,7 @@ import ru.votingsystem.HasId;
 import ru.votingsystem.util.exception.NotFoundException;
 
 import javax.validation.*;
+import java.util.List;
 import java.util.Set;
 
 public class ValidationUtil {
@@ -14,6 +15,15 @@ public class ValidationUtil {
 
     public static <T> T checkNotFoundWithId(T object, int id) {
         return checkNotFound(object, "id=" + id);
+    }
+
+    public static <T> List<T> checkNotFoundWithId(List<T> object, int id) {
+        return checkNotFound(object, "id=" + id);
+    }
+
+    public static <T> List<T> checkNotFound(List<T> object, String msg) {
+        checkNotFound(!object.isEmpty(), msg);
+        return object;
     }
 
     public static void checkNotFoundWithId(boolean found, int id) {
