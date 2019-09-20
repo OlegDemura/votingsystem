@@ -35,6 +35,14 @@ class AdminMealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void testGetAllOnRestaurant() throws Exception {
+        mockMvc.perform(get(REST_URL)
+                .param("restaurantId", "1")
+                .with(userHttpBasic(ADMIN)))
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + MEAL1_ID)
                 .param("restaurantId", String.valueOf(RESTAURANT2_ID))
