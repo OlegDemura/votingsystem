@@ -108,7 +108,7 @@ As a result, provide a link to github repository.
     `curl -X DELETE http://localhost:8080/votingsystem/rest/admin/meals/100007?restaurantId=100002 -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 
-###Operations with votes###
+### Operations with votes###
 
 - #### Get a vote-counting for the restaurant with ID 100002 on the 2019/07/06
     `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/vote/count?restaurantId=100002&localDate=2019-07-06' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
@@ -117,5 +117,5 @@ As a result, provide a link to github repository.
     `curl -X GET 'http://localhost:8080/votingsystem/rest/admin/vote/countwithfilter?restaurantId=100002&startDate=2019-07-06&endDate=2019-07-11' -H 'Authorization: Basic YWRtaW5AZ21haWwuY29tOmFkbWlu'`
 
 
-###String for Maven run
+### String for Maven run
     `clean package -DskipTests=true org.codehaus.cargo:cargo-maven2-plugin:1.7.5:run`
