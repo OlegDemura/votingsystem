@@ -15,7 +15,8 @@ import java.time.LocalDate;
 
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Entity
-@Table(name = "meals")
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"description", "restaurant_id", "date_lunch"},
+        name = "meals_unique_description_restaurant_id_date_lunch_idx")})
 public class Meal extends AbstractBaseEntity {
 
     @Column(name = "description", nullable = false)
